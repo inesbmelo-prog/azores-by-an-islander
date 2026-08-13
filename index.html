@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azores by an Islander</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF3E4;
+    --card:#FFFFFF;
+    --card-2:#F3E8C9;
+    --ink:#1C2420;
+    --ink-soft:#5B6259;
+    --green:#189B57;
+    --green-deep:#0E6E3D;
+    --green-light:#E3F3E8;
+    --blue:#1C86C4;
+    --blue-deep:#0B3E5C;
+    --yellow:#F4B740;
+    --topbar:#1C86C4;
+    --topbar-2:#0B5C86;
+    --topbar-ink:#FFFFFF;
+    --shadow: 0 10px 30px rgba(11,62,92,0.14);
+    --shadow-sm: 0 4px 12px rgba(11,62,92,0.10);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin:0;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;letter-spacing:0.02em;}
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--yellow);}
+
+  /* ---------- HEADER ---------- */
+  header{
+    padding:26px 6vw 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    background:linear-gradient(120deg,var(--topbar),var(--topbar-2));
+  }
+  .brand{
+    font-size:clamp(24px, 3vw, 30px);
+    color:var(--topbar-ink);
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+  }
+  .brand b{color:var(--topbar-ink);}
+  .brand small{
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:12px;
+    color:var(--topbar-2);
+    background:rgba(255,255,255,0.85);
+    padding:4px 10px;
+    border-radius:999px;
+  }
+
+  /* ---------- NAV: pill moderna com indicador animado ---------- */
+  .nav-wrap{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:linear-gradient(120deg,var(--topbar),var(--topbar-2));
+    border-bottom:2px solid rgba(0,0,0,0.12);
+    padding:12px 0;
+  }
+  nav{
+    position:relative;
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding:4px 6vw;
+    scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar{display:none;}
+  .nav-indicator{
+    position:absolute;
+    top:4px;
+    height:calc(100% - 8px);
+    background:linear-gradient(135deg,var(--green),var(--yellow));
+    border-radius:999px;
+    transition:left .35s cubic-bezier(.4,0,.2,1), width .35s cubic-bezier(.4,0,.2,1);
+    box-shadow:0 4px 14px rgba(0,0,0,0.25);
+    z-index:0;
+  }
+  .tab-btn{
+    position:relative;
+    z-index:1;
+    flex:0 0 auto;
+    border:none;
+    background:transparent;
+    color:rgba(255,255,255,0.78);
+    padding:9px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    font-family:'Inter',sans-serif;
+    font-weight:500;
+    font-size:13.5px;
+    transition:color .25s ease;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+  }
+  .tab-btn .code{font-family:'IBM Plex Mono',monospace;font-size:10.5px;opacity:.8;}
+  .tab-btn.active{color:var(--ink);}
+  .tab-btn.active .code{opacity:.65;}
+
+  main{padding:0 6vw 80px;}
+  section.view{display:none;animation:fadeIn .4s ease;}
+  section.view.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- REEL (tab inicial) ---------- */
+  .reel-hero{padding:40px 0 6px;}
+  .reel-hero h2{font-size:clamp(30px,5vw,50px);color:var(--ink);}
+  .reel-hero .accent{color:var(--green-deep);}
+  .reel-hero p{max-width:560px;color:var(--ink-soft);margin-top:12px;font-size:15px;line-height:1.6;}
+  .reel-strip{display:flex;gap:16px;overflow-x:auto;padding:28px 4px 14px;}
+  .reel-card{
+    flex:0 0 auto;
+    width:190px;
+    aspect-ratio:9/16;
+    border-radius:22px;
+    background:linear-gradient(155deg,var(--blue-deep),var(--green));
+    position:relative;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    transition:transform .25s ease;
+  }
+  .reel-card:hover{transform:translateY(-6px) scale(1.02);}
+  .reel-card video, .reel-card iframe{width:100%;height:100%;object-fit:cover;border:0;}
+  .reel-card .placeholder{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:16px;
+    background:linear-gradient(180deg,transparent 45%, rgba(8,20,16,.65));
+  }
+  .reel-card .placeholder .code{font-family:'IBM Plex Mono',monospace;color:var(--yellow);font-size:11px;}
+  .reel-card .placeholder .name{color:#fff;font-family:'Space Grotesk',sans-serif;font-size:19px;margin-top:2px;}
+  .reel-card .play{
+    position:absolute;top:14px;right:14px;
+    width:30px;height:30px;border-radius:50%;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .reel-card .play::after{
+    content:'';border-left:8px solid var(--blue-deep);border-top:6px solid transparent;border-bottom:6px solid transparent;margin-left:2px;
+  }
+  .reel-note{font-size:12px;color:var(--ink-soft);border-left:2px solid var(--green);padding-left:10px;margin-top:10px;}
+
+  .links-block{margin-top:38px;}
+  .links-block h3{
+    font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;
+    color:var(--green-deep);font-weight:700;margin-bottom:14px;
+  }
+  .links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;}
+  .link-card{
+    display:flex;align-items:center;gap:10px;
+    background:var(--card);border-radius:14px;padding:14px 16px;
+    box-shadow:var(--shadow-sm);text-decoration:none;color:var(--ink);
+    transition:transform .2s ease;
+  }
+  .link-card:hover{transform:translateY(-3px);}
+  .link-card .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex:0 0 auto;}
+  .link-card span.label{font-size:14px;font-weight:500;}
+  .link-card small{display:block;color:var(--ink-soft);font-size:11.5px;margin-top:2px;}
+  .island-links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;}
+  .island-link-card .dot{background:var(--green);}
+
+  /* ---------- ISLAND VIEW ---------- */
+  .island-head{
+    display:flex;
+    gap:18px;
+    align-items:center;
+    flex-wrap:wrap;
+    padding:38px 0 20px;
+  }
+  .island-code{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    background:var(--blue-deep);
+    color:#fff;
+    padding:6px 12px;
+    border-radius:999px;
+  }
+  .island-title{
+    font-size:clamp(30px,5vw,52px);
+    display:inline-block;
+    padding:4px 16px;
+    border-radius:12px;
+    border:2px solid rgba(28,36,32,0.12);
+  }
+  .island-group{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.04em;}
+
+  .island-body{margin-top:6px;display:grid;gap:22px;}
+  .section-block{
+    background:var(--card);
+    border-radius:18px;
+    padding:24px 26px;
+    box-shadow:var(--shadow-sm);
+  }
+  .section-block h3{
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:var(--green-deep);
+    font-family:'Inter',sans-serif;
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .section-block p[contenteditable]{
+    line-height:1.7;font-size:15.5px;color:var(--ink);margin:0;max-width:760px;
+  }
+  .section-block p[contenteditable]:focus{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px;}
+
+  ul.pick-list{list-style:none;margin:0;padding:0;max-width:760px;}
+  ul.pick-list > li{
+    padding:10px 0;
+    border-bottom:1px solid rgba(28,36,32,.08);
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+  }
+  ul.pick-list > li:last-child{border-bottom:none;}
+  ul.pick-list > li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:8px;flex:0 0 auto;}
+  ul.pick-list ul{list-style:none;margin:8px 0 0 18px;padding:0;width:100%;}
+  ul.pick-list ul li{padding:5px 0;display:flex;gap:8px;font-size:14px;color:var(--ink-soft);}
+  ul.pick-list ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--yellow);margin-top:8px;flex:0 0 auto;}
+  ul.pick-list ul li{align-items:flex-start;}
+
+  .photo-gallery{display:grid;grid-template-columns:repeat(4, 1fr);gap:10px;}
+  .photo-gallery .ph{
+    aspect-ratio:1;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--green-light),#E7EFE0);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;color:var(--green-deep);
+    text-align:center;
+    overflow:hidden;
+    transition:transform .25s ease;
+  }
+  .photo-gallery .ph:hover{transform:translateY(-4px);}
+  .photo-gallery img{width:100%;height:100%;object-fit:cover;}
+
+  footer{
+    margin-top:20px;
+    padding:30px 6vw 40px;
+    background:var(--blue-deep);
+    color:#DCEFEA;
+    font-size:13px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    border-radius:24px 24px 0 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand display"><b>Azores</b><small>by an Islander</small></div>
+</header>
+
+<div class="nav-wrap">
+  <nav id="tabnav">
+    <div class="nav-indicator" id="navIndicator"></div>
+  </nav>
+</div>
+
+<main>
+  <section class="view active" id="view-inicio">
+    <div class="reel-hero">
+      <h2>Nove ilhas, <span class="accent">um minuto cada.</span></h2>
+      <p>Antes de escolheres para onde ir, vê. Um pequeno vídeo por ilha — o suficiente para sentir a diferença entre a paisagem lunar da Graciosa e as fajãs verdes de São Jorge.</p>
+    </div>
+    <div class="reel-strip" id="reelStrip"></div>
+    <p class="reel-note">Substitui cada cartão por um vídeo real: troca a <span class="mono">div.placeholder</span> por uma tag <span class="mono">&lt;video&gt;</span> (ficheiro .mp4 curto) ou um <span class="mono">&lt;iframe&gt;</span> do YouTube/Vimeo.</p>
+
+    <div class="links-block">
+      <h3>Links Gerais</h3>
+      <!-- Adiciona/edita links gerais aqui -->
+      <div class="links-grid" id="linksGerais"></div>
+
+      <h3>Trilhos por Ilha</h3>
+      <!-- Cada cartão abre a rede oficial de trilhos; troca o "url" no LINKS_ILHAS para a página exata da ilha quando a encontrares -->
+      <div class="island-links-grid" id="linksIlhas"></div>
+    </div>
+  </section>
+
+  <div id="islandViews"></div>
+</main>
+
+<footer>
+  <div>Feito com carinho açoriano · Graciosa, Açores</div>
+  <div>Fotos e vídeos por preencher — guia de substituição no código</div>
+</footer>
+
+<script>
+const ISLANDS = [
+  {
+    code:"GRW", name:"Graciosa", grupo:"Grupo Central", colorBg:"#FFFFFF", colorText:"#1C2420",
+    introducao:"A Graciosa é a ilha Branca — a mais pequena das ilhas centrais, mas a que conheço de dentro para fora, porque foi aqui que nasci. Tranquila, plana em quase toda a sua extensão, com moinhos brancos e uma caldeira vulcânica única no arquipélago.",
+    atracoes:[
+      {name:"Furna do Enxofre", sub:["Descida à caldeira vulcânica com lanterna","Lago sulfuroso no interior da gruta"]},
+      {name:"Santa Cruz da Graciosa", sub:["Moinhos de vento brancos","Museu da Graciosa"]},
+      {name:"Praia da Barra", sub:["Vista para o Ilhéu de Baixo"]},
+      {name:"Termas do Carapacho"}
+    ],
+    gastronomia:["Cracas e lapas frescas","Queijo da Graciosa","Vinho de cheiro produzido na ilha"],
+    trilhos:["Trilho da Caldeira","Percurso costeiro até ao Ilhéu de Baixo"],
+    cultura:["Festas do Divino Espírito Santo, muito vividas em cada freguesia","Tradição vinícola em adegas escavadas na rocha vulcânica"],
+    dicas:["A ilha é pequena — dá para percorrer de bicicleta em pouco mais de um dia","As termas do Carapacho estão melhores fora da época alta"],
+    conclusao:"A Graciosa não impressiona pela dimensão, mas pela sensação de paisagem lunar e silêncio que raramente se encontra noutra ilha do arquipélago."
+  },
+  {
+    code:"PDL", name:"São Miguel", grupo:"Grupo Oriental", colorBg:"#1E9D5A", colorText:"#FFFFFF",
+    introducao:"São Miguel é a maior ilha do arquipélago e é conhecida como a \"ilha verde\". Famosa pelas suas lagoas, como a Lagoa das Sete Cidades, que apresenta duas cores distintas: azul e verde. A cidade de Ponta Delgada, a capital, oferece uma rica história e cultura.",
+    atracoes:[
+      {name:"Furnas", sub:["Poça da Dona Beija","Parque Terra Nostra"]},
+      {name:"Nordeste", sub:["Farol do Arneiro","Miradouros"]},
+      {name:"Plantações Chá Gorreana"},
+      {name:"Mosteiros"},
+      {name:"Lagoa das 7 Cidades"},
+      {name:"Lagoa do Fogo", sub:["Caldeira Velha"]}
+    ],
+    gastronomia:["Bolos Lêvedos","Cozido das Furnas"],
+    trilhos:["Trilho da Lagoa das 7 Cidades"],
+    cultura:[],
+    dicas:[],
+    conclusao:""
+  },
+  {
+    code:"TER", name:"Terceira", grupo:"Grupo Central", colorBg:"#8E63C4", colorText:"#FFFFFF",
+    introducao:"A Terceira é a ilha Lilás. Angra do Heroísmo é Património Mundial da UNESCO, e a tradição da tourada à corda diz muito sobre a alma da ilha.",
+    atracoes:[
+      {name:"Angra do Heroísmo", sub:["Centro histórico","Monte Brasil"]},
+      {name:"Algar do Carvão", sub:["Gruta vulcânica com claraboia natural"]},
+      {name:"Biscoitos", sub:["Piscinas naturais em lava vulcânica"]}
+    ],
+    gastronomia:["Alcatra à moda da Terceira","Queijadas da Graciosa (também populares aqui)","Licor de leite"],
+    trilhos:["Trilho do Biscoito da Fontinha"],
+    cultura:["Touradas à corda, típicas em época de festas","Festas de São João em Angra do Heroísmo"],
+    dicas:["Reserva as touradas à corda para a época de festas de verão","Angra fica melhor a pé — deixa o carro fora do centro"],
+    conclusao:"A Terceira combina história, tradição viva e paisagem vulcânica como poucas outras ilhas do arquipélago."
+  },
+  {
+    code:"SJZ", name:"São Jorge", grupo:"Grupo Central", colorBg:"#8B5A2B", colorText:"#FFFFFF",
+    introducao:"São Jorge é a ilha das Fajãs. Estreita e comprida, com falésias que caem direto para o mar em plataformas de lava — as fajãs — que dão o nome à ilha.",
+    atracoes:[
+      {name:"Fajã da Caldeira de Santo Cristo", sub:["Surf","Lagoa de ostras"]},
+      {name:"Fajã dos Cubres"},
+      {name:"Pico da Esperança", sub:["Ponto mais alto da ilha"]}
+    ],
+    gastronomia:["Queijo São Jorge, provado numa queijaria local","Linguiça de São Jorge"],
+    trilhos:["Trilho da Fajã dos Cubres à Fajã da Caldeira de Santo Cristo"],
+    cultura:["Tradição queijeira transmitida entre gerações"],
+    dicas:["A descida às fajãs é exigente — leva água e calçado apropriado","Combina a visita com um dia de mar em vez de só paisagem"],
+    conclusao:"São Jorge é a ilha para quem procura caminhadas de vertigem e queijo a sério."
+  },
+  {
+    code:"PIX", name:"Pico", grupo:"Grupo Central", colorBg:"#6E756B", colorText:"#FFFFFF",
+    introducao:"O Pico é a ilha da Montanha. O vulcão mais alto de Portugal e uma paisagem vinícola única, feita em currais de pedra negra classificados pela UNESCO.",
+    atracoes:[
+      {name:"Montanha do Pico", sub:["Subida ao ponto mais alto de Portugal"]},
+      {name:"Paisagem da Cultura da Vinha", sub:["Currais de pedra vulcânica"]},
+      {name:"Lajes do Pico", sub:["Observação de cetáceos"]}
+    ],
+    gastronomia:["Vinho Verdelho do Pico","Lapas grelhadas"],
+    trilhos:["Trilho da Montanha do Pico"],
+    cultura:["Antiga tradição baleeira, hoje reconvertida em observação de cetáceos"],
+    dicas:["A subida à montanha exige guia e boa condição física","Reserva a prova de vinho para o fim do dia, junto ao mar"],
+    conclusao:"O Pico é paisagem vulcânica e tradição vinícola lado a lado, num contraste único no arquipélago."
+  },
+  {
+    code:"HOR", name:"Faial", grupo:"Grupo Central", colorBg:"#1C86C4", colorText:"#FFFFFF",
+    introducao:"O Faial é a ilha Azul. A marina da Horta é ponto de passagem obrigatório para veleiros do Atlântico — e guarda uma tradição de arte de rua deixada por marinheiros de todo o mundo.",
+    atracoes:[
+      {name:"Caldeira do Faial", sub:["Cratera coberta de vegetação"]},
+      {name:"Marina da Horta", sub:["Murais pintados por marinheiros"]},
+      {name:"Vulcão dos Capelinhos", sub:["Paisagem formada pela erupção de 1957"]}
+    ],
+    gastronomia:["Lapas à Bulhão Pato","Gin no Peter Café Sport"],
+    trilhos:["Trilho da Caldeira do Faial"],
+    cultura:["Tradição marítima e comunidade internacional de veleiros"],
+    dicas:["Pinta o teu próprio mural na marina, é tradição para quem passa de barco","Visita o Vulcão dos Capelinhos com o centro de interpretação incluído"],
+    conclusao:"O Faial é o ponto de encontro do Atlântico — entre vulcões recentes e histórias de marinheiros."
+  },
+  {
+    code:"SMA", name:"Santa Maria", grupo:"Grupo Oriental", colorBg:"#F4C43D", colorText:"#1C2420",
+    introducao:"Santa Maria é a ilha Amarela. A mais antiga geologicamente e a única com praias de areia dourada em quantidade.",
+    atracoes:[
+      {name:"Praia de São Lourenço", sub:["Anfiteatro de vinhas junto ao mar"]},
+      {name:"Barreiro da Faneca", sub:["Paisagem avermelhada, quase desértica"]},
+      {name:"Vila do Porto", sub:["A mais antiga vila dos Açores"]}
+    ],
+    gastronomia:["Peixe grelhado junto ao porto","Doces conventuais"],
+    trilhos:["Trilho do Barreiro da Faneca"],
+    cultura:["Primeira ilha açoriana a ser povoada"],
+    dicas:["As praias de Santa Maria enchem no verão — vai cedo","O Barreiro da Faneca é ainda mais bonito ao fim da tarde"],
+    conclusao:"Santa Maria é praia, história antiga e a luz mais dourada do arquipélago."
+  },
+  {
+    code:"FLW", name:"Flores", grupo:"Grupo Ocidental", colorBg:"#D9709B", colorText:"#FFFFFF",
+    introducao:"Flores é a ilha das cascatas e lagoas — hortênsias em cada esquina, talvez a mais fotogénica de todas.",
+    atracoes:[
+      {name:"Lagoa Funda e Lagoa Rasa"},
+      {name:"Poço do Bacalhau", sub:["Cascata acessível a pé"]},
+      {name:"Rocha dos Bordões", sub:["Colunas de basalto verticais"]},
+      {name:"Fajãzinha"}
+    ],
+    gastronomia:["Peixe fresco grelhado","Bolos de milho"],
+    trilhos:["Trilho da Rocha dos Bordões à Fajãzinha"],
+    cultura:["Vida rural marcada pelo isolamento geográfico"],
+    dicas:["Leva roupa impermeável — a ilha é famosa pela chuva repentina","Aluga carro, os pontos de interesse estão dispersos"],
+    conclusao:"Flores é natureza em estado puro — cascatas, lagoas e verde por todo o lado."
+  },
+  {
+    code:"CVU", name:"Corvo", grupo:"Grupo Ocidental", colorBg:"#221E1E", colorText:"#FFFFFF",
+    introducao:"O Corvo é a ilha mais pequena e menos povoada dos Açores — só uma vila, o Caldeirão, e muito silêncio.",
+    atracoes:[
+      {name:"Caldeirão", sub:["Cratera vulcânica que ocupa quase toda a ilha"]},
+      {name:"Vila do Corvo"}
+    ],
+    gastronomia:["Peixe do dia, servido nas poucas tascas da vila"],
+    trilhos:["Trilho do Caldeirão"],
+    cultura:["Comunidade de referência europeia para observação de aves raras"],
+    dicas:["Vai de barco desde as Flores e fica pelo menos uma noite","Não esperes infraestrutura turística — é isso que faz a ilha especial"],
+    conclusao:"O Corvo é o fim do mapa açoriano — pequeno, remoto, e por isso memorável."
+  }
+];
+
+const nav = document.getElementById('tabnav');
+const indicator = document.getElementById('navIndicator');
+
+/* ---------- Links Importantes ---------- */
+const LINKS_GERAIS = [
+  {label:"Rede de Trilhos dos Açores", note:"Percursos pedestres classificados, todas as ilhas", url:"https://trails.visitazores.com/pt-pt"},
+  {label:"Portal do Turismo dos Açores", note:"Site oficial do Governo Regional", url:"https://turismo.azores.gov.pt/percursos-pedestres/"}
+];
+const linksGerais = document.getElementById('linksGerais');
+LINKS_GERAIS.forEach(l=>{
+  const a = document.createElement('a');
+  a.className = 'link-card';
+  a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
+  a.innerHTML = `<span class="dot"></span><span><span class="label">${l.label}</span><small>${l.note}</small></span>`;
+  linksGerais.appendChild(a);
+});
+
+/* Liga cada ilha à rede oficial de trilhos. Troca "url" por uma página
+   específica da ilha quando a encontrares no site. */
+const linksIlhas = document.getElementById('linksIlhas');
+
+
+function makeBtn(target, label, code){
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn';
+  btn.dataset.target = target;
+  btn.innerHTML = code ? `<span class="code">${code}</span>${label}` : label;
+  return btn;
+}
+const reelBtn = makeBtn('view-inicio', 'Início');
+reelBtn.classList.add('active');
+nav.appendChild(reelBtn);
+ISLANDS.forEach(isl=>{
+  nav.appendChild(makeBtn('view-' + isl.code, isl.name, isl.code));
+
+  const a = document.createElement('a');
+  a.className = 'link-card island-link-card';
+  a.href = "https://trails.visitazores.com/pt-pt";
+  a.target = '_blank'; a.rel = 'noopener';
+  a.innerHTML = `<span class="dot"></span><span><span class="label">${isl.name}</span><small>Trilhos — ${isl.grupo}</small></span>`;
+  linksIlhas.appendChild(a);
+});
+
+function moveIndicator(btn){
+  indicator.style.left = btn.offsetLeft + 'px';
+  indicator.style.width = btn.offsetWidth + 'px';
+}
+requestAnimationFrame(()=> moveIndicator(reelBtn));
+window.addEventListener('resize', ()=>{
+  const active = nav.querySelector('.tab-btn.active');
+  if(active) moveIndicator(active);
+});
+
+const reelStrip = document.getElementById('reelStrip');
+ISLANDS.forEach(isl=>{
+  const card = document.createElement('div');
+  card.className = 'reel-card';
+  card.innerHTML = `
+    <!-- Para vídeo real, troca este div por:
+         <video src="videos/${isl.code.toLowerCase()}.mp4" muted loop playsinline></video>
+         ou um <iframe> do YouTube -->
+    <div class="placeholder">
+      <span class="code">${isl.code}</span>
+      <span class="name">${isl.name}</span>
+    </div>
+    <div class="play"></div>`;
+  card.addEventListener('click', ()=> showView('view-' + isl.code));
+  reelStrip.appendChild(card);
+});
+
+function renderAtracoes(list){
+  return list.map(item=>{
+    const sub = item.sub && item.sub.length ? `<ul>${item.sub.map(s=>`<li>${s}</li>`).join('')}</ul>` : '';
+    return `<li>${item.name}${sub}</li>`;
+  }).join('');
+}
+function renderSimpleList(list){ return list.map(i=>`<li>${i}</li>`).join(''); }
+function sectionBlock(title, innerHTML){
+  if(!innerHTML) return '';
+  return `<div class="section-block"><h3>${title}</h3>${innerHTML}</div>`;
+}
+
+const islandViews = document.getElementById('islandViews');
+ISLANDS.forEach(isl=>{
+  const section = document.createElement('section');
+  section.className = 'view';
+  section.id = 'view-' + isl.code;
+
+  const introBlock = sectionBlock('Introdução', `<p contenteditable="true">${isl.introducao}</p>`);
+  const atracoesBlock = sectionBlock('Atrações Principais', isl.atracoes?.length ? `<ul class="pick-list">${renderAtracoes(isl.atracoes)}</ul>` : '');
+  const gastronomiaBlock = sectionBlock('Gastronomia', isl.gastronomia?.length ? `<ul class="pick-list">${renderSimpleList(isl.gastronomia)}</ul>` : '');
+  const trilhosBlock = sectionBlock('Trilhos e Natureza', isl.trilhos?.length ? `<ul class="pick-list">${renderSimpleList(isl.trilhos)}</ul>` : '');
+  const culturaBlock = sectionBlock('Cultura e Tradições', isl.cultura?.length ? `<ul class="pick-list">${renderSimpleList(isl.cultura)}</ul>` : '');
+  const dicasBlock = sectionBlock('Dicas Práticas', isl.dicas?.length ? `<ul class="pick-list">${renderSimpleList(isl.dicas)}</ul>` : '');
+  const conclusaoBlock = sectionBlock('Conclusão', isl.conclusao ? `<p contenteditable="true">${isl.conclusao}</p>` : '');
+
+  section.innerHTML = `
+    <div class="island-head">
+      <span class="island-code">${isl.code}</span>
+      <h2 class="island-title" style="background:${isl.colorBg};color:${isl.colorText};">${isl.name}</h2>
+      <span class="island-group">${isl.grupo}</span>
+    </div>
+    <div class="island-body">
+      ${introBlock}${atracoesBlock}${gastronomiaBlock}${trilhosBlock}${culturaBlock}${dicasBlock}${conclusaoBlock}
+      <div class="section-block">
+        <h3>Fotos</h3>
+        <div class="photo-gallery">
+          ${Array.from({length:4}).map((_,i)=>`<div class="ph"><!-- troca por: <img src="fotos/${isl.code.toLowerCase()}-${i+1}.jpg"> -->foto ${i+1}</div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  islandViews.appendChild(section);
+});
+
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    const isActive = b.dataset.target===id;
+    b.classList.toggle('active', isActive);
+    if(isActive) moveIndicator(b);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+nav.addEventListener('click', e=>{
+  const btn = e.target.closest('.tab-btn');
+  if(btn) showView(btn.dataset.target);
+});
+</script>
+</body>
+</html>
