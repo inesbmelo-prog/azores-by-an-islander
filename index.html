@@ -263,23 +263,24 @@
     padding:10px 0;
     border-bottom:1px solid rgba(28,36,32,.08);
     display:flex;
-    gap:10px;
     align-items:flex-start;
     line-height:1.6;
     font-size:15px;
   }
   ul.pick-list > li:last-child{border-bottom:none;}
-  ul.pick-list > li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:8px;flex:0 0 auto;}
+  ul.pick-list > li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:8px;margin-right:10px;flex:0 0 auto;}
   ul.pick-list > li > .li-body{flex:1 1 auto;min-width:0;}
   ul.pick-list ul{list-style:none;margin:10px 0 0 8px;padding:0 0 0 16px;border-left:2px solid rgba(28,36,32,.10);width:auto;}
   .zonas-list{margin-left:2px;}
-  ul.pick-list ul li{padding:5px 0;display:flex;gap:8px;font-size:14px;color:var(--ink-soft);align-items:flex-start;}
-  ul.pick-list ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--yellow);margin-top:8px;flex:0 0 auto;}
+  ul.pick-list ul li{padding:5px 0;display:flex;font-size:14px;color:var(--ink-soft);align-items:flex-start;}
+  ul.pick-list ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--yellow);margin-top:8px;margin-right:8px;flex:0 0 auto;}
 
   /* Listas simples (sem sub-listas aninhadas) ganham colunas responsivas
      em ecrãs largos, para preencher o espaço em vez de o deixar vazio */
   .pick-list-columns{
     max-width:none;
+    column-width:320px;
+    column-gap:32px;
   }
   .pick-list-columns > li{break-inside:avoid-column;}
 
@@ -396,7 +397,32 @@ const ISLANDS = [
     restaurantes:[],
     cultura:"As **Festas do Divino Espírito Santo** são muito vividas em cada freguesia, e a tradição vinícola mantém-se viva em adegas escavadas na rocha vulcânica."
   },
-    {
+  {
+    code:"PDL", name:"São Miguel", grupo:"Grupo Oriental", colorBg:"#1E9D5A", colorText:"#FFFFFF",
+    introducao:[
+      "São Miguel é a maior ilha do arquipélago, conhecida como a **\"ilha verde\"**.",
+      "Famosa pelas suas lagoas, como a **Lagoa das Sete Cidades**, com duas cores distintas: azul e verde.",
+      "**Ponta Delgada**, a capital, oferece uma rica história e cultura."
+    ],
+    atracoes:[
+      {name:"Furnas", bullets:["Poça da Dona Beija","Parque Terra Nostra"]},
+      {name:"Nordeste", bullets:["Farol do Arneiro","Miradouros"]},
+      {name:"Plantações Chá Gorreana", bullets:[]},
+      {name:"Mosteiros", bullets:[]},
+      {name:"Lagoa das 7 Cidades", bullets:[]},
+      {name:"Lagoa do Fogo", bullets:["Caldeira Velha"]}
+    ],
+    trilhos:[
+      {name:"Trilho da Lagoa das 7 Cidades", desc:""}
+    ],
+    gastronomia:{
+      doces:[{name:"Bolos Lêvedos", desc:""}],
+      pratos:[{name:"Cozido das Furnas", desc:""}]
+    },
+    restaurantes:[],
+    cultura:""
+  },
+  {
     code:"TER", name:"Terceira", grupo:"Grupo Central", colorBg:"#8E63C4", colorText:"#FFFFFF",
     introducao:[
       "A Terceira é conhecida como a **Ilha Lilás** devido à abundância de hortênsias que, durante grande parte do ano, pintam as suas paisagens com tons de lilás, criando um cenário único e característico da ilha.",
@@ -631,31 +657,6 @@ const ISLANDS = [
     },
     restaurantes:[],
     cultura:"Primeira ilha açoriana a ser povoada."
-  },
-{
-    code:"PDL", name:"São Miguel", grupo:"Grupo Oriental", colorBg:"#1E9D5A", colorText:"#FFFFFF",
-    introducao:[
-      "São Miguel é a maior ilha do arquipélago, conhecida como a **\"ilha verde\"**.",
-      "Famosa pelas suas lagoas, como a **Lagoa das Sete Cidades**, com duas cores distintas: azul e verde.",
-      "**Ponta Delgada**, a capital, oferece uma rica história e cultura."
-    ],
-    atracoes:[
-      {name:"Furnas", bullets:["Poça da Dona Beija","Parque Terra Nostra"]},
-      {name:"Nordeste", bullets:["Farol do Arneiro","Miradouros"]},
-      {name:"Plantações Chá Gorreana", bullets:[]},
-      {name:"Mosteiros", bullets:[]},
-      {name:"Lagoa das 7 Cidades", bullets:[]},
-      {name:"Lagoa do Fogo", bullets:["Caldeira Velha"]}
-    ],
-    trilhos:[
-      {name:"Trilho da Lagoa das 7 Cidades", desc:""}
-    ],
-    gastronomia:{
-      doces:[{name:"Bolos Lêvedos", desc:""}],
-      pratos:[{name:"Cozido das Furnas", desc:""}]
-    },
-    restaurantes:[],
-    cultura:""
   },
   {
     code:"FLW", name:"Flores", grupo:"Grupo Ocidental", colorBg:"#D9709B", colorText:"#FFFFFF",
