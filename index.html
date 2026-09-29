@@ -231,7 +231,7 @@
     padding:24px 26px;
     box-shadow:var(--shadow-sm);
     border-left:4px solid var(--accent, transparent);
-    max-width:820px;
+    width:100%;
   }
   .section-block h3{
     font-size:16px;
@@ -243,7 +243,7 @@
   .section-block .editable{outline:none;}
   .section-block .editable:focus{outline:2px dashed var(--blue);outline-offset:8px;border-radius:8px;}
   .section-block .editable p{
-    line-height:1.75;font-size:15.5px;color:var(--ink);margin:0 0 14px;max-width:760px;
+    line-height:1.75;font-size:15.5px;color:var(--ink);margin:0 0 14px;max-width:75ch;
   }
   .section-block .editable p:last-child{margin-bottom:0;}
 
@@ -258,7 +258,7 @@
     color:var(--green-deep);margin:12px 0 4px;
   }
 
-  ul.pick-list{list-style:none;margin:0;padding:0;max-width:760px;}
+  ul.pick-list{list-style:none;margin:0;padding:0;max-width:75ch;}
   ul.pick-list > li{
     padding:10px 0;
     border-bottom:1px solid rgba(28,36,32,.08);
@@ -275,6 +275,15 @@
   .zonas-list{margin-left:2px;}
   ul.pick-list ul li{padding:5px 0;display:flex;gap:8px;font-size:14px;color:var(--ink-soft);align-items:flex-start;}
   ul.pick-list ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--yellow);margin-top:8px;flex:0 0 auto;}
+
+  /* Listas simples (sem sub-listas aninhadas) ganham colunas responsivas
+     em ecrãs largos, para preencher o espaço em vez de o deixar vazio */
+  .pick-list-columns{
+    max-width:none;
+    column-width:320px;
+    column-gap:32px;
+  }
+  .pick-list-columns > li{break-inside:avoid-column;}
 
   .photo-gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(90px, 1fr));gap:10px;}
   .photo-gallery .ph{
@@ -790,10 +799,10 @@ function renderTrilhosList(list){
 }
 function renderTrilhos(trilhos){
   if(Array.isArray(trilhos)){
-    return `<ul class="pick-list">${renderTrilhosList(trilhos)}</ul>`;
+    return `<ul class="pick-list pick-list-columns">${renderTrilhosList(trilhos)}</ul>`;
   }
   const introHtml = trilhos.intro ? `<p>${b(trilhos.intro)}</p>` : '';
-  const list = trilhos.percursos && trilhos.percursos.length ? `<ul class="pick-list">${renderTrilhosList(trilhos.percursos)}</ul>` : '';
+  const list = trilhos.percursos && trilhos.percursos.length ? `<ul class="pick-list pick-list-columns">${renderTrilhosList(trilhos.percursos)}</ul>` : '';
   return `${introHtml}${list}`;
 }
 function temTrilhos(trilhos){
@@ -808,16 +817,16 @@ function renderGastronomia(g){
   if(!g) return '';
   let html = '';
   if(g.doces && g.doces.length){
-    html += `<h4 class="sub-heading">Doces Típicos</h4><ul class="pick-list">${renderNameDescList(g.doces)}</ul>`;
+    html += `<h4 class="sub-heading">Doces Típicos</h4><ul class="pick-list pick-list-columns">${renderNameDescList(g.doces)}</ul>`;
   }
   if(g.pratos && g.pratos.length){
-    html += `<h4 class="sub-heading">Pratos Regionais</h4><ul class="pick-list">${renderNameDescList(g.pratos)}</ul>`;
+    html += `<h4 class="sub-heading">Pratos Regionais</h4><ul class="pick-list pick-list-columns">${renderNameDescList(g.pratos)}</ul>`;
   }
   return html;
 }
 function renderRestaurantes(list){
   return list.map(r=>{
-    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list">${g.itens.map(i=>`<li>${b(i)}</li>`).join('')}</ul>`).join('');
+    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list pick-list-columns">${g.itens.map(i=>`<li>${b(i)}</li>`).join('')}</ul>`).join('');
     return `<h4 class="sub-heading">${b(r.regiao)}</h4>${grupos}`;
   }).join('');
 }
