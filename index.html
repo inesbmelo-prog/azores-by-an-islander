@@ -400,27 +400,91 @@ const ISLANDS = [
   {
     code:"PDL", name:"São Miguel", grupo:"Grupo Oriental", colorBg:"#1E9D5A", colorText:"#FFFFFF",
     introducao:[
-      "São Miguel é a maior ilha do arquipélago, conhecida como a **\"ilha verde\"**.",
-      "Famosa pelas suas lagoas, como a **Lagoa das Sete Cidades**, com duas cores distintas: azul e verde.",
-      "**Ponta Delgada**, a capital, oferece uma rica história e cultura."
+      "São Miguel é conhecida como a **Ilha Verde**, um nome que se explica pela paisagem: pastagens intensamente verdes, florestas de criptoméria e hortênsias que cobrem as encostas vulcânicas, resultado do clima húmido e da fertilidade do solo de origem vulcânica. É a maior e mais populosa ilha do arquipélago, e também a mais visitada.",
+      "A ilha é marcada por lagoas vulcânicas, termas naturais e uma paisagem que muda a cada vale — das plantações de chá e ananás no interior às piscinas naturais na costa. **Ponta Delgada**, a capital dos Açores, é o principal ponto de partida para explorar o resto da ilha.",
+      "**Curiosidades:** a **Lagoa das Sete Cidades**, com uma margem azul e outra verde, é explicada por uma lenda local sobre uma princesa de olhos azuis e um pastor de olhos verdes que choraram ao separar-se, dando origem às duas cores das águas. Em **Furnas**, o tradicional **Cozido das Furnas** é cozinhado debaixo da terra, aproveitando o calor natural das fumarolas vulcânicas — um método único no mundo."
     ],
     atracoes:[
-      {name:"Furnas", bullets:["Poça da Dona Beija","Parque Terra Nostra"]},
-      {name:"Nordeste", bullets:["Farol do Arneiro","Miradouros"]},
-      {name:"Plantações Chá Gorreana", bullets:[]},
-      {name:"Mosteiros", bullets:[]},
-      {name:"Lagoa das 7 Cidades", bullets:[]},
-      {name:"Lagoa do Fogo", bullets:["Caldeira Velha"]}
+      {name:"Furnas", bullets:[
+        "**Poça da Dona Beija**, piscinas termais ao ar livre",
+        "**Parque Terra Nostra**, jardim histórico com piscina de água termal amarelada",
+        "Passeio pela aldeia e piquenique com **bolos lêvedos** comprados na fábrica local"
+      ]},
+      {name:"Nordeste", bullets:[
+        "**Farol do Arneiro**, miradouro sobre a costa — não leves o carro até lá abaixo",
+        "Vários outros miradouros ao longo da estrada regional",
+        "**Ferreirinha**, outro miradouro na zona — também sem acesso de carro até ao fundo"
+      ]},
+      {name:"Plantações Chá Gorreana", bullets:[
+        "A plantação de chá mais antiga da Europa, com visita e prova gratuitas"
+      ]},
+      {name:"Mosteiros", bullets:[
+        "Zona conhecida pelo **pôr do sol**, com vista para os ilhéus dos Mosteiros",
+        "**Praia dos Mosteiros**, ideal para o final do dia"
+      ]},
+      {name:"Lagoa das 7 Cidades", bullets:[
+        "Lagoa de duas cores, azul e verde, vista dos miradouros à volta da caldeira",
+        "Junto à lagoa ficam as **Ruínas do Monte Palace Hotel**, um antigo hotel abandonado, hoje coberto de vegetação"
+      ]},
+      {name:"Lagoa do Fogo", bullets:[
+        "**Caldeira Velha**, piscinas naturais de água quente junto a uma cascata"
+      ]},
+      {name:"Vila Franca do Campo", bullets:[
+        "À noite tem um ambiente simpático, com os mais velhos a conversar na rua e as crianças a brincar"
+      ]},
+      {name:"Ponta Delgada", bullets:[
+        "Vale a pena visitar a cidade com calma — centro histórico, portas da cidade e a marina"
+      ]},
+      {name:"Praias Recomendadas", bullets:[
+        "**Praia dos Moinhos**, boa para início de tarde",
+        "**Praia do Fogo**, em Ribeira Quente — ótima para o pôr do sol e o jantar a seguir",
+        "**Praia dos Mosteiros**, também para o pôr do sol",
+        "**Praia de Água d'Alto**, boa opção para o final da tarde"
+      ]}
     ],
     trilhos:[
-      {name:"Trilho da Lagoa das 7 Cidades", desc:""}
+      {name:"Trilho da Lagoa das Sete Cidades e Lagoa do Canário", desc:"Percurso que liga as duas lagoas, com vistas amplas sobre a caldeira e o interior da ilha."}
     ],
     gastronomia:{
-      doces:[{name:"Bolos Lêvedos", desc:""}],
-      pratos:[{name:"Cozido das Furnas", desc:""}]
+      doces:[{name:"Bolos Lêvedos", desc:"vale a pena comprar diretamente na fábrica, em Furnas"}],
+      pratos:[{name:"Cozido das Furnas", desc:"cozinhado debaixo da terra, aproveitando o calor vulcânico"}]
     },
-    restaurantes:[],
-    cultura:""
+    restaurantes:[
+      {
+        regiao:"Ponta Delgada",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**Mané Cigano** — carapauzinhos fritos com arroz de tomate e peixe frito em geral (almoço)",
+            "**O Galego** — os melhores bifes (jantar)"
+          ]}
+        ]
+      },
+      {
+        regiao:"Rabo de Peixe",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**Botequim Açoreano** — para entrada, morcela com ananás e angélica; restaurante do chef Rúben, da TVI (jantar)"
+          ]}
+        ]
+      },
+      {
+        regiao:"Ribeira Quente",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**Ponta do Garajau** — pratos de peixe, junto à Praia do Fogo (pôr do sol e jantar)"
+          ]}
+        ]
+      },
+      {
+        regiao:"Mosteiros",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**O Américo de Barbosa** — um prato de polvo e um hambúrguer de peixe em bolo lêvedo (pôr do sol e jantar)"
+          ]}
+        ]
+      }
+    ],
+    cultura:"As **Festas do Senhor Santo Cristo dos Milagres**, em Ponta Delgada, são uma das maiores romarias religiosas dos Açores, reunindo milhares de pessoas todos os anos no final de abril ou início de maio. A imagem do Senhor Santo Cristo sai em procissão pelas ruas da cidade, decoradas com tapetes de flores e panos bordados. Ao longo do ano, as diferentes freguesias da ilha vivem também as suas próprias festas populares, marcadas pela música, pelas comidas de rua e pela forte vida comunitária."
   },
   {
     code:"TER", name:"Terceira", grupo:"Grupo Central", colorBg:"#8E63C4", colorText:"#FFFFFF",
