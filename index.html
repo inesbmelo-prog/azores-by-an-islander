@@ -402,18 +402,17 @@ const ISLANDS = [
     introducao:[
       "São Miguel é conhecida como a **Ilha Verde**, um nome que se explica pela paisagem: pastagens intensamente verdes, florestas de criptoméria e hortênsias que cobrem as encostas vulcânicas, resultado do clima húmido e da fertilidade do solo de origem vulcânica. É a maior e mais populosa ilha do arquipélago, e também a mais visitada.",
       "A ilha é marcada por lagoas vulcânicas, termas naturais e uma paisagem que muda a cada vale — das plantações de chá e ananás no interior às piscinas naturais na costa. **Ponta Delgada**, a capital dos Açores, é o principal ponto de partida para explorar o resto da ilha.",
-      "**Curiosidades:** a **Lagoa das Sete Cidades**, com uma margem azul e outra verde, é explicada por uma lenda local sobre uma princesa de olhos azuis e um pastor de olhos verdes que choraram ao separar-se, dando origem às duas cores das águas. Em **Furnas**, o tradicional **Cozido das Furnas** é cozinhado debaixo da terra, aproveitando o calor natural das fumarolas vulcânicas — um método único no mundo."
+      "**Curiosidades:** a **Lagoa das Sete Cidades**, com uma margem azul e outra verde, é explicada por uma lenda local sobre uma princesa de olhos azuis e um pastor de olhos verdes que choraram ao separar-se, dando origem às duas cores das águas. Nas **Furnas**, o tradicional **Cozido das Furnas** é cozinhado debaixo da terra, aproveitando o calor natural das fumarolas vulcânicas — um método único no mundo."
     ],
     atracoes:[
       {name:"Furnas", bullets:[
         "**Poça da Dona Beija**, piscinas termais ao ar livre",
         "**Parque Terra Nostra**, jardim histórico com piscina de água termal amarelada",
-        "Passeio pela aldeia e piquenique com **bolos lêvedos** comprados na fábrica local"
+        "Passeio pela aldeia e piquenique com **bolos lêvedos** comprados na fábrica local Rosa Quental"
       ]},
       {name:"Nordeste", bullets:[
-        "**Farol do Arneiro**, miradouro sobre a costa — não leves o carro até lá abaixo",
-        "Vários outros miradouros ao longo da estrada regional",
-        "**Ferreirinha**, outro miradouro na zona — também sem acesso de carro até ao fundo"
+        "**Farol do Arneiro**, miradouro sobre a costa — dica, não leves o carro até lá abaixo",
+        "Vários outros miradouros ao longo da estrada regional"
       ]},
       {name:"Plantações Chá Gorreana", bullets:[
         "A plantação de chá mais antiga da Europa, com visita e prova gratuitas"
@@ -427,34 +426,53 @@ const ISLANDS = [
         "Junto à lagoa ficam as **Ruínas do Monte Palace Hotel**, um antigo hotel abandonado, hoje coberto de vegetação"
       ]},
       {name:"Lagoa do Fogo", bullets:[
+        "**Lagoa do Fogo**, percorrer os seus miradouros para admirar a paisagem",
         "**Caldeira Velha**, piscinas naturais de água quente junto a uma cascata"
       ]},
       {name:"Vila Franca do Campo", bullets:[
-        "À noite tem um ambiente simpático, com os mais velhos a conversar na rua e as crianças a brincar"
+        "À noite tem um ambiente simpático, com os mais velhos a conversar na rua e as crianças a brincar",
+        "O **Ilhéu de Vila Franca** merece ser descoberto de perto, mas também impressiona quando admirado junto ao mar"
       ]},
       {name:"Ponta Delgada", bullets:[
-        "Vale a pena visitar a cidade com calma — centro histórico, portas da cidade e a marina"
+        "Vale a pena visitar a cidade com calma, passeando pelo seu centro histórico, pelas **Portas da Cidade**, pela animada zona das **Portas do Mar**, pelo tradicional **Mercado da Graça** e pela marina, que convida a apreciar o ambiente marítimo de Ponta Delgada",
+        "**Jardim António Borges**, um jardim romântico do século XIX com grutas, lagos e árvores exóticas, ideal para um passeio tranquilo.",
+        "**Campo de São Francisco** e a **Igreja e Convento de Nossa Senhora da Esperança**, onde se encontra a imagem do Senhor Santo Cristo dos Milagres, a maior devoção dos Açores, celebrada anualmente no quinto domingo após a Páscoa."
       ]},
       {name:"Praias Recomendadas", bullets:[
         "**Praia dos Moinhos**, boa para início de tarde",
-        "**Praia do Fogo**, em Ribeira Quente — ótima para o pôr do sol e o jantar a seguir",
+        "**Praia do Fogo**, na Ribeira Quente — ótima para o pôr do sol e o jantar a seguir",
         "**Praia dos Mosteiros**, também para o pôr do sol",
         "**Praia de Água d'Alto**, boa opção para o final da tarde"
       ]}
     ],
     trilhos:[
-      {name:"Trilho da Lagoa das Sete Cidades e Lagoa do Canário", desc:"Percurso que liga as duas lagoas, com vistas amplas sobre a caldeira e o interior da ilha."}
+      {name:"Trilho da Lagoa das Sete Cidades", bullets:[
+        "Percurso circular junto à cratera das Sete Cidades, com vistas deslumbrantes sobre as lagoas Azul e Verde e alguns dos miradouros mais emblemáticos de São Miguel"
+      ]},
+      {name: "Lagoa do Canário", bullets:[
+        "Percurso que liga as duas lagoas, com vistas amplas sobre a caldeira e o interior da ilha"      
+      ]}
     ],
     gastronomia:{
-      doces:[{name:"Bolos Lêvedos", desc:"vale a pena comprar diretamente na fábrica, em Furnas"}],
-      pratos:[{name:"Cozido das Furnas", desc:"cozinhado debaixo da terra, aproveitando o calor vulcânico"}]
+      {name:"**Doces**", bullets:[
+        "**Bolos Lêvedos**, vale a pena comprar diretamente na fábrica, nas Furnas. E sabe sempre bem no pequeno-almoço ou lanche",
+        "**Queijadas da Vila** doce tradicional de Vila Franca do Campo, produzido há séculos e um dos mais emblemáticos da ilha",
+        "**Ananás** produzido em estufa e com um sabor mais intenso do que o ananás tropical comum"
+      ]},
+      {name: "Pratos ou Bebidas", bullets:[
+        "**Cozido das Furnas** cozinhado debaixo da terra, aproveitando o calor vulcânico",
+        "**Bife à Regional** um dos pratos mais populares de São Miguel, preparado com carne açoriana e molho rico em alho e especiarias",
+        "**Chicharros Fritos** peixe típico dos Açores servido frito, geralmente acompanhado por molho vilão",
+        "**Polvo Guisado** receita tradicional açoriana, especialmente apreciada em épocas festivas",
+        "Bebidas **Melo Abreu**, cerveja Especial, Laranjada e Kima de Maracujá"
+      ]}      
     },
     restaurantes:[
       {
         regiao:"Ponta Delgada",
         grupos:[
           {label:"Onde comer", itens:[
-            "**Mané Cigano** — carapauzinhos fritos com arroz de tomate e peixe frito em geral (almoço)",
+            "**Mané Cigano** — chicharros fritos com arroz de tomate e peixe frito em geral (almoço)",
             "**O Galego** — os melhores bifes (jantar)"
           ]}
         ]
@@ -463,7 +481,7 @@ const ISLANDS = [
         regiao:"Rabo de Peixe",
         grupos:[
           {label:"Onde comer", itens:[
-            "**Botequim Açoreano** — para entrada, morcela com ananás e angélica; restaurante do chef Rúben, da TVI (jantar)"
+            "**Botequim Açoreano** — para entrada, morcela com ananás e angélica; restaurante do chef Rúben Pacheco Correia, da TVI (jantar)"
           ]}
         ]
       },
@@ -484,7 +502,7 @@ const ISLANDS = [
         ]
       }
     ],
-    cultura:"As **Festas do Senhor Santo Cristo dos Milagres**, em Ponta Delgada, são uma das maiores romarias religiosas dos Açores, reunindo milhares de pessoas todos os anos no final de abril ou início de maio. A imagem do Senhor Santo Cristo sai em procissão pelas ruas da cidade, decoradas com tapetes de flores e panos bordados. Ao longo do ano, as diferentes freguesias da ilha vivem também as suas próprias festas populares, marcadas pela música, pelas comidas de rua e pela forte vida comunitária."
+    cultura:"As **Festas do Senhor Santo Cristo dos Milagres**, em Ponta Delgada, são uma das maiores romarias religiosas dos Açores, reunindo milhares de pessoas todos os anos no final de abril ou início de maio. A imagem do Senhor Santo Cristo sai em procissão pelas ruas da cidade, decoradas com tapetes de flores e panos bordados. Destacam-se as **Festas do Espírito Santo**, presentes em praticamente todas as freguesias da ilha e marcadas pelas coroações, partilha de alimentos e forte espírito de solidariedade. Durante a Quaresma, os **Romeiros de São Miguel** percorrem a ilha a pé em peregrinação, mantendo uma tradição secular única nos Açores. Outra tradição distintiva é a **produção de chá**, já que São Miguel alberga as únicas plantações de chá da Europa."
   },
   {
     code:"TER", name:"Terceira", grupo:"Grupo Central", colorBg:"#8E63C4", colorText:"#FFFFFF",
