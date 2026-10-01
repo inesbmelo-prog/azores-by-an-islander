@@ -273,6 +273,7 @@
   ul.pick-list ul{list-style:none;margin:10px 0 0 8px;padding:0 0 0 16px;border-left:2px solid rgba(28,36,32,.10);width:auto;}
   .zonas-list{margin-left:2px;}
   ul.pick-list ul li{padding:5px 0;display:flex;font-size:14px;color:var(--ink-soft);align-items:flex-start;}
+  ul.pick-list ul li > .li-body{flex:1 1 auto;min-width:0;}
   ul.pick-list ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--yellow);margin-top:8px;margin-right:8px;flex:0 0 auto;}
 
   .photo-gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(90px, 1fr));gap:10px;}
@@ -837,6 +838,12 @@ function moveIndicator(btn){
   indicator.style.width = btn.offsetWidth + 'px';
 }
 requestAnimationFrame(()=> moveIndicator(reelBtn));
+if(document.fonts && document.fonts.ready){
+  document.fonts.ready.then(()=>{
+    const active = nav.querySelector('.tab-btn.active');
+    if(active) moveIndicator(active);
+  });
+}
 window.addEventListener('resize', ()=>{
   const active = nav.querySelector('.tab-btn.active');
   if(active) moveIndicator(active);
@@ -868,7 +875,7 @@ function renderParagraphs(list){
   return list.map(p=>`<p>${b(p)}</p>`).join('');
 }
 function renderAtracaoItem(item){
-  const subs = item.bullets && item.bullets.length ? `<ul>${item.bullets.map(s=>`<li>${b(s)}</li>`).join('')}</ul>` : '';
+  const subs = item.bullets && item.bullets.length ? `<ul>${item.bullets.map(s=>`<li><div class="li-body">${b(s)}</div></li>`).join('')}</ul>` : '';
   return `<li><div class="li-body"><strong>${b(item.name)}</strong>${subs}</div></li>`;
 }
 function renderAtracoes(list){
@@ -883,7 +890,7 @@ function renderAtracoes(list){
   return `<ul class="pick-list">${list.map(renderAtracaoItem).join('')}</ul>`;
 }
 function renderTrilhosList(list){
-  return list.map(t=>`<li><strong>${b(t.name)}</strong>${t.desc ? ' — ' + b(t.desc) : ''}</li>`).join('');
+  return list.map(t=>`<li><div class="li-body"><strong>${b(t.name)}</strong>${t.desc ? ' — ' + b(t.desc) : ''}</div></li>`).join('');
 }
 function renderTrilhos(trilhos){
   if(Array.isArray(trilhos)){
@@ -903,7 +910,7 @@ function temTrilhos(trilhos){
   return !!(trilhos.intro || (trilhos.percursos && trilhos.percursos.length));
 }
 function renderNameDescList(list){
-  return list.map(item=>`<li><strong>${b(item.name)}</strong>${item.desc ? ' — ' + b(item.desc) : ''}</li>`).join('');
+  return list.map(item=>`<li><div class="li-body"><strong>${b(item.name)}</strong>${item.desc ? ' — ' + b(item.desc) : ''}</div></li>`).join('');
 }
 function renderGastronomia(g){
   if(!g) return '';
@@ -921,7 +928,7 @@ function renderGastronomia(g){
 }
 function renderRestaurantes(list){
   return list.map(r=>{
-    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list">${g.itens.map(i=>`<li>${b(i)}</li>`).join('')}</ul>`).join('');
+    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list">${g.itens.map(i=>`<li><div class="li-body">${b(i)}</div></li>`).join('')}</ul>`).join('');
     return `<h4 class="sub-heading">${b(r.regiao)}</h4>${grupos}`;
   }).join('');
 }
@@ -986,10 +993,10 @@ ISLANDS.forEach(isl=>{
 function showView(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b=>{
-    const isActive = b.dataset.target===id;
-    b.classList.toggle('active', isActive);
-    if(isActive) moveIndicator(b);
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    const isActive = btn.dataset.target===id;
+    btn.classList.toggle('active', isActive);
+    if(isActive){ moveIndicator(btn); btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}); }
   });
   window.scrollTo({top:0,behavior:'smooth'});
 }
