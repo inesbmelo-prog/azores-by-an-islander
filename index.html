@@ -275,15 +275,6 @@
   ul.pick-list ul li{padding:5px 0;display:flex;font-size:14px;color:var(--ink-soft);align-items:flex-start;}
   ul.pick-list ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--yellow);margin-top:8px;margin-right:8px;flex:0 0 auto;}
 
-  /* Listas simples (sem sub-listas aninhadas) ganham colunas responsivas
-     em ecrãs largos, para preencher o espaço em vez de o deixar vazio */
-  .pick-list-columns{
-    max-width:none;
-    column-width:320px;
-    column-gap:32px;
-  }
-  .pick-list-columns > li{break-inside:avoid-column;}
-
   .photo-gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(90px, 1fr));gap:10px;}
   .photo-gallery .ph{
     aspect-ratio:1;
@@ -453,20 +444,20 @@ const ISLANDS = [
         "Percurso que liga as duas lagoas, com vistas amplas sobre a caldeira e o interior da ilha"      
       ]}
     ],
-    gastronomia:{
-      {name:"**Doces**", bullets:[
+    gastronomia:[
+      {name:"Doces", bullets:[
         "**Bolos Lêvedos**, vale a pena comprar diretamente na fábrica, nas Furnas. E sabe sempre bem no pequeno-almoço ou lanche",
         "**Queijadas da Vila** doce tradicional de Vila Franca do Campo, produzido há séculos e um dos mais emblemáticos da ilha",
         "**Ananás** produzido em estufa e com um sabor mais intenso do que o ananás tropical comum"
       ]},
-      {name: "Pratos ou Bebidas", bullets:[
+      {name:"Pratos ou Bebidas", bullets:[
         "**Cozido das Furnas** cozinhado debaixo da terra, aproveitando o calor vulcânico",
         "**Bife à Regional** um dos pratos mais populares de São Miguel, preparado com carne açoriana e molho rico em alho e especiarias",
         "**Chicharros Fritos** peixe típico dos Açores servido frito, geralmente acompanhado por molho vilão",
         "**Polvo Guisado** receita tradicional açoriana, especialmente apreciada em épocas festivas",
         "Bebidas **Melo Abreu**, cerveja Especial, Laranjada e Kima de Maracujá"
-      ]}      
-    },
+      ]}
+    ],
     restaurantes:[
       {
         regiao:"Ponta Delgada",
@@ -592,14 +583,30 @@ const ISLANDS = [
     trilhos:{
       intro:"Grande parte da beleza da Terceira encontra-se na sua natureza. Os trilhos pedestres são uma das melhores formas de descobrir o interior da ilha, as paisagens vulcânicas, a floresta nativa e algumas das vistas mais impressionantes dos Açores. Antes de iniciar qualquer percurso, é aconselhável consultar o estado dos trilhos no portal oficial dos Trilhos dos Açores, onde são indicados eventuais encerramentos para manutenção.",
       percursos:[
-        {name:"Mistérios Negros", desc:"Percurso circular de dificuldade média pelo interior da ilha, atravessando zonas de floresta nativa, lagoas e áreas marcadas pelas erupções vulcânicas históricas."},
-        {name:"Baías da Agualva", desc:"Percurso linear considerado um dos mais bonitos da Terceira, acompanhando a costa norte entre falésias, miradouros e várias baías de grande beleza natural."},
-        {name:"Rocha do Chambre", desc:"Percurso de dificuldade média pelo maciço central da ilha, combinando floresta, vegetação endémica e amplas vistas sobre o interior da Terceira."},
-        {name:"Matas da Agualva", desc:"Percurso circular de dificuldade média, ligado às ribeiras, antigas azenhas e áreas florestais."},
-        {name:"Lagoa do Cerro", desc:"Percurso circular fácil, por alamedas de criptomérias e pastagens de altitude."},
-        {name:"Rota da Água", desc:"Percurso circular nos arredores de Angra, ligado a antigos moinhos e ao abastecimento de água da cidade, com vista sobre Angra e o Monte Brasil."},
-        {name:"Algar do Carvão – Furnas do Enxofre", desc:"Percurso de dificuldade média que liga os dois monumentos naturais no interior da ilha."},
-        {name:"Pedra Furada da Serra da Ribeirinha", desc:"Percurso associado à paisagem e ao património cultural da freguesia da Ribeirinha."}
+        {name:"Mistérios Negros", bullets:[
+          "Percurso circular de dificuldade média pelo interior da ilha, atravessando zonas de floresta nativa, lagoas e áreas marcadas pelas erupções vulcânicas históricas."
+        ]},
+        {name:"Baías da Agualva", bullets:[
+          "Percurso linear considerado um dos mais bonitos da Terceira, acompanhando a costa norte entre falésias, miradouros e várias baías de grande beleza natural."
+        ]},
+        {name:"Rocha do Chambre", bullets:[
+          "Percurso de dificuldade média pelo maciço central da ilha, combinando floresta, vegetação endémica e amplas vistas sobre o interior da Terceira."
+        ]},
+        {name:"Matas da Agualva", bullets:[
+          "Percurso circular de dificuldade média, ligado às ribeiras, antigas azenhas e áreas florestais."
+        ]},
+        {name:"Lagoa do Cerro", bullets:[
+          "Percurso circular fácil, por alamedas de criptomérias e pastagens de altitude."
+        ]},
+        {name:"Rota da Água", bullets:[
+          "Percurso circular nos arredores de Angra, ligado a antigos moinhos e ao abastecimento de água da cidade, com vista sobre Angra e o Monte Brasil."
+        ]},
+        {name:"Algar do Carvão – Furnas do Enxofre", bullets:[
+          "Percurso de dificuldade média que liga os dois monumentos naturais no interior da ilha."
+        ]},
+        {name:"Pedra Furada da Serra da Ribeirinha", bullets:[
+          "Percurso associado à paisagem e ao património cultural da freguesia da Ribeirinha."
+        ]}
       ]
     },
     gastronomia:{
@@ -862,7 +869,7 @@ function renderParagraphs(list){
 }
 function renderAtracaoItem(item){
   const subs = item.bullets && item.bullets.length ? `<ul>${item.bullets.map(s=>`<li>${b(s)}</li>`).join('')}</ul>` : '';
-  return `<li><div class="li-body"><strong>${item.name}</strong>${subs}</div></li>`;
+  return `<li><div class="li-body"><strong>${b(item.name)}</strong>${subs}</div></li>`;
 }
 function renderAtracoes(list){
   const isRegional = list.length && list[0].zonas;
@@ -876,14 +883,18 @@ function renderAtracoes(list){
   return `<ul class="pick-list">${list.map(renderAtracaoItem).join('')}</ul>`;
 }
 function renderTrilhosList(list){
-  return list.map(t=>`<li><strong>${t.name}</strong>${t.desc ? ' — ' + b(t.desc) : ''}</li>`).join('');
+  return list.map(t=>`<li><strong>${b(t.name)}</strong>${t.desc ? ' — ' + b(t.desc) : ''}</li>`).join('');
 }
 function renderTrilhos(trilhos){
   if(Array.isArray(trilhos)){
-    return `<ul class="pick-list pick-list-columns">${renderTrilhosList(trilhos)}</ul>`;
+    if(trilhos.length && trilhos[0].bullets){
+      return `<ul class="pick-list">${trilhos.map(renderAtracaoItem).join('')}</ul>`;
+    }
+    return `<ul class="pick-list">${renderTrilhosList(trilhos)}</ul>`;
   }
   const introHtml = trilhos.intro ? `<p>${b(trilhos.intro)}</p>` : '';
-  const list = trilhos.percursos && trilhos.percursos.length ? `<ul class="pick-list pick-list-columns">${renderTrilhosList(trilhos.percursos)}</ul>` : '';
+  const percursos = trilhos.percursos || [];
+  const list = percursos.length ? `<ul class="pick-list">${percursos[0].bullets ? percursos.map(renderAtracaoItem).join('') : renderTrilhosList(percursos)}</ul>` : '';
   return `${introHtml}${list}`;
 }
 function temTrilhos(trilhos){
@@ -892,22 +903,25 @@ function temTrilhos(trilhos){
   return !!(trilhos.intro || (trilhos.percursos && trilhos.percursos.length));
 }
 function renderNameDescList(list){
-  return list.map(item=>`<li><strong>${item.name}</strong>${item.desc ? ' — ' + b(item.desc) : ''}</li>`).join('');
+  return list.map(item=>`<li><strong>${b(item.name)}</strong>${item.desc ? ' — ' + b(item.desc) : ''}</li>`).join('');
 }
 function renderGastronomia(g){
   if(!g) return '';
+  if(Array.isArray(g)){
+    return `<ul class="pick-list">${g.map(renderAtracaoItem).join('')}</ul>`;
+  }
   let html = '';
   if(g.doces && g.doces.length){
-    html += `<h4 class="sub-heading">Doces Típicos</h4><ul class="pick-list pick-list-columns">${renderNameDescList(g.doces)}</ul>`;
+    html += `<h4 class="sub-heading">Doces Típicos</h4><ul class="pick-list">${renderNameDescList(g.doces)}</ul>`;
   }
   if(g.pratos && g.pratos.length){
-    html += `<h4 class="sub-heading">Pratos Regionais</h4><ul class="pick-list pick-list-columns">${renderNameDescList(g.pratos)}</ul>`;
+    html += `<h4 class="sub-heading">Pratos Regionais</h4><ul class="pick-list">${renderNameDescList(g.pratos)}</ul>`;
   }
   return html;
 }
 function renderRestaurantes(list){
   return list.map(r=>{
-    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list pick-list-columns">${g.itens.map(i=>`<li>${b(i)}</li>`).join('')}</ul>`).join('');
+    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list">${g.itens.map(i=>`<li>${b(i)}</li>`).join('')}</ul>`).join('');
     return `<h4 class="sub-heading">${b(r.regiao)}</h4>${grupos}`;
   }).join('');
 }
@@ -935,7 +949,7 @@ ISLANDS.forEach(isl=>{
     temTrilhos(isl.trilhos) ? `<div class="editable" contenteditable="true">${renderTrilhos(isl.trilhos)}</div>` : '',
     'var(--green-deep)');
 
-  const temGastronomia = isl.gastronomia && ((isl.gastronomia.doces && isl.gastronomia.doces.length) || (isl.gastronomia.pratos && isl.gastronomia.pratos.length));
+  const temGastronomia = isl.gastronomia && (Array.isArray(isl.gastronomia) ? isl.gastronomia.length > 0 : ((isl.gastronomia.doces && isl.gastronomia.doces.length) || (isl.gastronomia.pratos && isl.gastronomia.pratos.length)));
   const gastronomiaBlock = sectionBlock('Gastronomia',
     temGastronomia ? `<div class="editable" contenteditable="true">${renderGastronomia(isl.gastronomia)}</div>` : '',
     'var(--yellow)');
