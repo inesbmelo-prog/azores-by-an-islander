@@ -273,7 +273,6 @@
   ul.pick-list ul{list-style:none;margin:10px 0 0 8px;padding:0 0 0 16px;border-left:2px solid rgba(28,36,32,.10);width:auto;}
   .zonas-list{margin-left:2px;}
   ul.pick-list ul li{padding:5px 0;display:flex;font-size:14px;color:var(--ink-soft);align-items:flex-start;}
-  ul.pick-list ul li > .li-body{flex:1 1 auto;min-width:0;}
   ul.pick-list ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--yellow);margin-top:8px;margin-right:8px;flex:0 0 auto;}
 
   .photo-gallery{display:grid;grid-template-columns:repeat(auto-fit, minmax(90px, 1fr));gap:10px;}
@@ -323,8 +322,8 @@
     <div class="reel-hero">
       <span class="tag">09 ILHAS</span>
       <div class="reel-hero-text">
-        <h2>Aproveita e vê um pequeno vídeo de um minuto por ilha, antes de decidires qual vais visitar!</h2>
-        <p>Todas as ilhas têm algo único para oferecer e valem a visita. Como são muitas e cada uma tem características muito diferentes, recomendamos a visualização dos vídeos seguintes para ajudar a planear o seu roteiro.</p>
+        <h2>Um minuto por ilha, antes de decidires.</h2>
+        <p>Vê primeiro. Um pequeno vídeo por ilha — o suficiente para sentir a diferença entre a paisagem lunar da Graciosa e as fajãs verdes de São Jorge.</p>
       </div>
     </div>
     <div class="reel-strip" id="reelStrip"></div>
@@ -362,32 +361,192 @@
    Usa **texto** dentro de qualquer frase para pôr uma palavra ou expressão a negrito. */
 
 const ISLANDS = [
+  {  
+    code:"GRW", name:"Graciosa", grupo:"Grupo Central", colorBg:"#FFFFFF", colorText:"#1C2420",  
+    introducao:[  
+      "Conhecida como a **Ilha Branca**, a Graciosa distingue-se pelas suas casas caiadas, paisagens suaves e ambiente tranquilo. É uma das ilhas mais planas dos Açores e uma das mais fáceis de explorar, ideal para quem procura autenticidade, natureza e um ritmo de vida mais calmo.",  
+      "Ao contrário de outras ilhas açorianas, a Graciosa não possui lagoas nem grandes cursos de água. Esta escassez moldou a história da ilha e deu origem a um engenhoso património ligado ao armazenamento da água, visível em cisternas, reservatórios e estruturas tradicionais espalhadas pelo território.",  
+      "O centro histórico de **Santa Cruz da Graciosa** é considerado um dos mais bonitos dos Açores, com ruas tranquilas, praças elegantes e edifícios bem preservados. Em 2007, a ilha foi reconhecida pela UNESCO como **Reserva da Biosfera**, refletindo o equilíbrio entre natureza, cultura e sustentabilidade."  
+    ],  
+    atracoes:[  
+      {  
+        regiao:"Santa Cruz da Graciosa",  
+        intro:"O coração da ilha merece ser explorado a pé.",  
+        zonas:[  
+          {name:"Centro de Santa Cruz", bullets:["Passeie pelo centro histórico, pelos **Paúis** e pela Praça Fontes Pereira de Melo.","Visite as ruínas da antiga Igreja de São Francisco.","Conheça a Igreja Matriz e a Igreja do Senhor Santo Cristo, associada à maior festa religiosa da ilha, celebrada no segundo fim de semana de agosto."]},  
+          {name:"Farol da Ponta da Barca", bullets:["Visite o farol junto ao emblemático **Ilhéu da Baleia**."]},  
+          {name:"Barro Vermelho", bullets:["Descubra esta rara praia de areia avermelhada na costa norte da ilha."]},  
+          {name:"Passeios e Miradouros", bullets:["Caminhe junto ao mar entre a Rua do Mar e o Hotel Ilha Graciosa.","Suba ao **Monte da Ajuda** para visitar as três ermidas e desfrutar de uma das melhores vistas sobre Santa Cruz e a sua pitoresca praça de touros."]},  
+          {name:"Zonas Balneares Recomendadas", bullets:["**Poça das Salemas**","**Calheta**","**Barro Vermelho**"]}  
+        ]  
+      },  
+      {  
+        regiao:"São Mateus",  
+        intro:"Também conhecida como **Vila da Praia**, São Mateus combina natureza, património e belas paisagens costeiras.",  
+        zonas:[  
+          {name:"Vila da Praia", bullets:["Passeie junto ao mar entre a lagoa e a praia.","Visite o Monte da Senhora da Saúde e a sua ermida, com excelentes vistas sobre a freguesia.","Observe o **Ilhéu da Praia**, importante santuário de aves marinhas, incluindo o raro Painho-de-Monteiro."]},  
+          {name:"Caldeira da Graciosa", bullets:["Faça uma paragem para um piquenique no parque de merendas.","Desça à **Furna do Enxofre**, uma impressionante cavidade vulcânica conhecida pela sua grande abóbada natural e pela atividade vulcânica secundária.","Percorra o trilho no perímetro da caldeira e pare nos miradouros. Em dias de céu limpo, é possível avistar outras ilhas do Grupo Central.","Suba à **Gruta da Maria Encantada** e descubra a lenda associada ao local."]},  
+          {name:"Zona Balnear Recomendada", bullets:["**Praia**"]}  
+        ]  
+      },  
+      {  
+        regiao:"Luz",  
+        intro:"Uma zona marcada pelo mar, pelas termas e pelas paisagens vulcânicas.",  
+        zonas:[  
+          {name:"Carapacho", bullets:["Relaxe nas históricas **Termas do Carapacho**, conhecidas pelas propriedades terapêuticas das suas águas.","Aproveite as piscinas naturais do Carapacho.","Visite o Farol do Carapacho."]},  
+          {name:"Folga e Baía do Filipe", bullets:["Descubra a tranquilidade da Folga.","Pare na Baía do Filipe e aproveite o baloiço com vista para o mar."]},  
+          {name:"Zonas Balneares Recomendadas", bullets:["**Carapacho**","**Folga**"]}  
+        ]  
+      },  
+      {  
+        regiao:"Guadalupe",  
+        intro:"Uma das melhores zonas da ilha para apreciar paisagens e miradouros.",  
+        zonas:[  
+          {name:"Serra Branca", bullets:["Percorra a serra e faça paragens nos seus vários miradouros."]},  
+          {name:"Caldeirinha", bullets:["Visite a Caldeirinha, junto ao parque eólico, e conheça a lenda associada ao local."]},  
+          {name:"Esperança Velha", bullets:["Conheça o **Burro Anão da Graciosa**, uma raça tradicional recuperada na ilha."]},  
+          {name:"Porto Afonso", bullets:["Admire as impressionantes formações de argila e a paisagem costeira."]},  
+          {name:"Beira-Mar da Vitória", bullets:["Um excelente local para terminar o dia e apreciar o pôr do sol."]},  
+          {name:"Zona Balnear Recomendada", bullets:["**Poceirões**"]}  
+        ]  
+      }  
+    ],  
+    trilhos:{  
+      intro:"Os trilhos da Graciosa são uma boa forma de conhecer as paisagens vulcânicas, a costa e as zonas rurais da ilha.",  
+      percursos:[  
+        {name:"Caldeirinha", bullets:["Percurso curto por uma paisagem vulcânica e rural."]},  
+        {name:"Cumeeira da Caldeira", bullets:["Caminhada panorâmica ao redor da caldeira, com vários miradouros."]},  
+        {name:"Barro Vermelho", bullets:["Percurso que combina costa, falésias e paisagens agrícolas."]},  
+        {name:"Grande Rota da Graciosa", bullets:["Uma boa opção para descobrir a ilha em maior profundidade."]},  
+        {name:"Folga - Baía do Filipe", bullets:["Trilho costeiro simples e agradável, com belas vistas sobre o mar."]}  
+      ]  
+    },  
+    gastronomia:{  
+      doces:[  
+        {name:"Queijadas da Graciosa", desc:"o doce mais emblemático da ilha"},  
+        {name:"Pastéis de Arroz", desc:"presença habitual nas pastelarias locais"},  
+        {name:"Rochedos", desc:"doce tradicional de textura firme e sabor intenso"},  
+        {name:"Guardanapos", desc:"massa folhada recheada com doce de ovos e marmelada"},  
+        {name:"Massa Doce", desc:"pão doce tradicional servido especialmente em épocas festivas e celebrações religiosas"}  
+      ],  
+      pratos:[  
+        {name:"Sopas do Espírito Santo", desc:"servidas com carnes, couves, repolho e pão ensopado"},  
+        {name:"Caldo de Peixe", desc:"receita tradicional que reflete a forte ligação da ilha ao mar"},  
+        {name:"Caldeirada de Peixe", desc:"um dos pratos mais procurados pelos visitantes"}  
+      ]  
+    },  
+    restaurantes:[  
+      {regiao:"Cafés e Padarias", grupos:[{label:"Onde fazer uma pausa", itens:["**Café Ilhéu**, um bom local para uma pausa no centro da vila.","**Padaria José João**, conhecida pelas refeições ligeiras, pão fresco e doces regionais. Fecha aos domingos.","**Padaria Santos**, famosa pelos croissants, guardanapos e pão com chouriço quente servido à noite.","**Apolo 80**, espaço descontraído que funciona como café e restaurante, com buffet ao almoço."]}]},  
+      {regiao:"Restaurantes", grupos:[{label:"Onde comer", itens:["**Costa do Sol**, experimente o hambúrguer servido em bolo lêvedo.","**Costa do Sol By The Sea**, com pratos de peixe e uma abordagem mais contemporânea.","**Estrela do Mar**, com uma excelente vista sobre a Folga e São Jorge, ideal para provar uma caldeirada de peixe."]}]}  
+    ],  
+    cultura:"A Graciosa preserva muitas das tradições que tornam os Açores únicos. As **touradas à corda** e as corridas de praça refletem a ligação cultural à ilha Terceira. As **Festas do Senhor Santo Cristo** são a principal celebração religiosa da ilha, enquanto as festas do **Espírito Santo** continuam muito presentes através das coroações, dos bodos e da partilha comunitária. O **Carnaval Graciosense** é vivido intensamente em toda a ilha: durante várias semanas, os clubes e salões organizam bailes, danças, fantasias e espetáculos que envolvem todas as gerações."  
+  },  
   {
-    code:"GRW", name:"Graciosa", grupo:"Grupo Central", colorBg:"#FFFFFF", colorText:"#1C2420",
+    code:"PDL", name:"São Miguel", grupo:"Grupo Oriental", colorBg:"#1E9D5A", colorText:"#FFFFFF",
     introducao:[
-      "A **Graciosa** é a ilha Branca — a mais pequena das ilhas centrais, mas a que conheço de dentro para fora, porque foi aqui que nasci.",
-      "Tranquila, plana em quase toda a sua extensão, com moinhos brancos e uma **caldeira vulcânica única** no arquipélago."
+      "São Miguel é conhecida como a **Ilha Verde**, um nome que se explica pela paisagem: pastagens intensamente verdes, florestas de criptoméria e hortênsias que cobrem as encostas vulcânicas, resultado do clima húmido e da fertilidade do solo de origem vulcânica. É a maior e mais populosa ilha do arquipélago, e também a mais visitada.",
+      "A ilha é marcada por lagoas vulcânicas, termas naturais e uma paisagem que muda a cada vale — das plantações de chá e ananás no interior às piscinas naturais na costa. **Ponta Delgada**, a capital dos Açores, é o principal ponto de partida para explorar o resto da ilha.",
+      "**Curiosidades:** a **Lagoa das Sete Cidades**, com uma margem azul e outra verde, é explicada por uma lenda local sobre uma princesa de olhos azuis e um pastor de olhos verdes que choraram ao separar-se, dando origem às duas cores das águas. Nas **Furnas**, o tradicional **Cozido das Furnas** é cozinhado debaixo da terra, aproveitando o calor natural das fumarolas vulcânicas — um método único no mundo."
     ],
     atracoes:[
-      {name:"Furna do Enxofre", bullets:["Descida à caldeira vulcânica com lanterna","Lago sulfuroso no interior da gruta"]},
-      {name:"Santa Cruz da Graciosa", bullets:["Moinhos de vento brancos","Museu da Graciosa"]},
-      {name:"Praia da Barra", bullets:["Vista para o Ilhéu de Baixo"]},
-      {name:"Termas do Carapacho", bullets:[]}
+      {name:"Furnas", bullets:[
+        "**Poça da Dona Beija**, piscinas termais ao ar livre",
+        "**Parque Terra Nostra**, jardim histórico com piscina de água termal amarelada",
+        "Passeio pela aldeia e piquenique com **bolos lêvedos** comprados na fábrica local Rosa Quental"
+      ]},
+      {name:"Nordeste", bullets:[
+        "**Farol do Arneiro**, miradouro sobre a costa — dica, não leves o carro até lá abaixo",
+        "Vários outros miradouros ao longo da estrada regional"
+      ]},
+      {name:"Plantações Chá Gorreana", bullets:[
+        "A plantação de chá mais antiga da Europa, com visita e prova gratuitas"
+      ]},
+      {name:"Mosteiros", bullets:[
+        "Zona conhecida pelo **pôr do sol**, com vista para os ilhéus dos Mosteiros",
+        "**Praia dos Mosteiros**, ideal para o final do dia"
+      ]},
+      {name:"Lagoa das 7 Cidades", bullets:[
+        "Lagoa de duas cores, azul e verde, vista dos miradouros à volta da caldeira",
+        "Junto à lagoa ficam as **Ruínas do Monte Palace Hotel**, um antigo hotel abandonado, hoje coberto de vegetação"
+      ]},
+      {name:"Lagoa do Fogo", bullets:[
+        "**Lagoa do Fogo**, percorrer os seus miradouros para admirar a paisagem",
+        "**Caldeira Velha**, piscinas naturais de água quente junto a uma cascata"
+      ]},
+      {name:"Vila Franca do Campo", bullets:[
+        "À noite tem um ambiente simpático, com os mais velhos a conversar na rua e as crianças a brincar",
+        "O **Ilhéu de Vila Franca** merece ser descoberto de perto, mas também impressiona quando admirado junto ao mar"
+      ]},
+      {name:"Ponta Delgada", bullets:[
+        "Vale a pena visitar a cidade com calma, passeando pelo seu centro histórico, pelas **Portas da Cidade**, pela animada zona das **Portas do Mar**, pelo tradicional **Mercado da Graça** e pela marina, que convida a apreciar o ambiente marítimo de Ponta Delgada",
+        "**Jardim António Borges**, um jardim romântico do século XIX com grutas, lagos e árvores exóticas, ideal para um passeio tranquilo.",
+        "**Campo de São Francisco** e a **Igreja e Convento de Nossa Senhora da Esperança**, onde se encontra a imagem do Senhor Santo Cristo dos Milagres, a maior devoção dos Açores, celebrada anualmente no quinto domingo após a Páscoa."
+      ]},
+      {name:"Praias Recomendadas", bullets:[
+        "**Praia dos Moinhos**, boa para início de tarde",
+        "**Praia do Fogo**, na Ribeira Quente — ótima para o pôr do sol e o jantar a seguir",
+        "**Praia dos Mosteiros**, também para o pôr do sol",
+        "**Praia de Água d'Alto**, boa opção para o final da tarde"
+      ]}
     ],
     trilhos:[
-      {name:"Trilho da Caldeira", desc:""},
-      {name:"Percurso costeiro até ao Ilhéu de Baixo", desc:""}
+      {name:"Trilho da Lagoa das Sete Cidades", bullets:[
+        "Percurso circular junto à cratera das Sete Cidades, com vistas deslumbrantes sobre as lagoas Azul e Verde e alguns dos miradouros mais emblemáticos de São Miguel"
+      ]},
+      {name: "Lagoa do Canário", bullets:[
+        "Percurso que liga as duas lagoas, com vistas amplas sobre a caldeira e o interior da ilha"      
+      ]}
     ],
-    gastronomia:{
-      doces:[],
-      pratos:[
-        {name:"Cracas e lapas frescas", desc:""},
-        {name:"Queijo da Graciosa", desc:""},
-        {name:"Vinho de cheiro", desc:"produzido na própria ilha"}
-      ]
-    },
-    restaurantes:[],
-    cultura:"As **Festas do Divino Espírito Santo** são muito vividas em cada freguesia, e a tradição vinícola mantém-se viva em adegas escavadas na rocha vulcânica."
+    gastronomia:[
+      {name:"Doces", bullets:[
+        "**Bolos Lêvedos**, vale a pena comprar diretamente na fábrica, nas Furnas. E sabe sempre bem no pequeno-almoço ou lanche",
+        "**Queijadas da Vila** doce tradicional de Vila Franca do Campo, produzido há séculos e um dos mais emblemáticos da ilha",
+        "**Ananás** produzido em estufa e com um sabor mais intenso do que o ananás tropical comum"
+      ]},
+      {name:"Pratos ou Bebidas", bullets:[
+        "**Cozido das Furnas** cozinhado debaixo da terra, aproveitando o calor vulcânico",
+        "**Bife à Regional** um dos pratos mais populares de São Miguel, preparado com carne açoriana e molho rico em alho e especiarias",
+        "**Chicharros Fritos** peixe típico dos Açores servido frito, geralmente acompanhado por molho vilão",
+        "**Polvo Guisado** receita tradicional açoriana, especialmente apreciada em épocas festivas",
+        "Bebidas **Melo Abreu**, cerveja Especial, Laranjada e Kima de Maracujá"
+      ]}
+    ],
+    restaurantes:[
+      {
+        regiao:"Ponta Delgada",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**Mané Cigano** — chicharros fritos com arroz de tomate e peixe frito em geral (almoço)",
+            "**O Galego** — os melhores bifes (jantar)"
+          ]}
+        ]
+      },
+      {
+        regiao:"Rabo de Peixe",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**Botequim Açoreano** — para entrada, morcela com ananás e angélica; restaurante do chef Rúben Pacheco Correia, da TVI (jantar)"
+          ]}
+        ]
+      },
+      {
+        regiao:"Ribeira Quente",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**Ponta do Garajau** — pratos de peixe, junto à Praia do Fogo (pôr do sol e jantar)"
+          ]}
+        ]
+      },
+      {
+        regiao:"Mosteiros",
+        grupos:[
+          {label:"Onde comer", itens:[
+            "**O Américo de Barbosa** — um prato de polvo e um hambúrguer de peixe em bolo lêvedo (pôr do sol e jantar)"
+          ]}
+        ]
+      }
+    ],
+    cultura:"As **Festas do Senhor Santo Cristo dos Milagres**, em Ponta Delgada, são uma das maiores romarias religiosas dos Açores, reunindo milhares de pessoas todos os anos no final de abril ou início de maio. A imagem do Senhor Santo Cristo sai em procissão pelas ruas da cidade, decoradas com tapetes de flores e panos bordados. Destacam-se as **Festas do Espírito Santo**, presentes em praticamente todas as freguesias da ilha e marcadas pelas coroações, partilha de alimentos e forte espírito de solidariedade. Durante a Quaresma, os **Romeiros de São Miguel** percorrem a ilha a pé em peregrinação, mantendo uma tradição secular única nos Açores. Outra tradição distintiva é a **produção de chá**, já que São Miguel alberga as únicas plantações de chá da Europa."
   },
   {
     code:"TER", name:"Terceira", grupo:"Grupo Central", colorBg:"#8E63C4", colorText:"#FFFFFF",
@@ -550,7 +709,7 @@ const ISLANDS = [
         ]
       }
     ],
-    cultura:"Os **Impérios do Espírito Santo** são pequenos edifícios espalhados pelas freguesias, cada um com cores e elementos decorativos próprios — vale a pena ver os de várias freguesias, não só das duas cidades principais. As celebrações do **Espírito Santo e dos Bodos** representam partilha, solidariedade e vida comunitária, com procissões, refeições comunitárias e música, sempre vividas com respeito pela sua dimensão religiosa. A Terceira é conhecida como **a ilha das festas**: no verão, as freguesias enchem-se de celebrações religiosas, música, marchas e petiscos. As **touradas à corda** são também uma das tradições mais conhecidas — decorrem nas ruas das freguesias, e devem ser assistidas sempre nas zonas destinadas ao público."
+    cultura:"Os **Impérios do Espírito Santo** são pequenos edifícios espalhados pelas freguesias, cada um com cores e elementos decorativos próprios — vale a pena ver os de várias freguesias, não só das duas cidades principais. As celebrações do **Espírito Santo e dos Bodos** representam partilha, solidariedade e vida comunitária, com procissões, refeições comunitárias e música, sempre vividas com respeito pela sua dimensão religiosa. A Terceira é conhecida como **a ilha das festas**: no verão, as freguesias enchem-se de celebrações religiosas, música, marchas e petiscos. As **touradas à corda** são também uma das tradições mais conhecidas — decorrem nas ruas das freguesias, e devem ser assistidas sempre nas zonas destinadas ao público. O **Carnaval da Ilha Terceira** é uma das tradições mais marcantes dos Açores. Durante várias semanas, grupos de todas as freguesias apresentam os tradicionais **Bailinhos e Danças**, espetáculos que misturam teatro, música, canto, humor e sátira sobre temas da atualidade. Vivido sobretudo nos salões recreativos da ilha, este carnaval envolve praticamente toda a população e é uma expressão única da identidade terceirense. Pela sua importância cultural, os Bailinhos da Terceira integram o **Inventário Nacional do Património Cultural Imaterial de Portugal**, sendo considerados uma das mais autênticas tradições populares açorianas."
   },
   {
     code:"SJZ", name:"São Jorge", grupo:"Grupo Central", colorBg:"#8B5A2B", colorText:"#FFFFFF",
@@ -620,113 +779,6 @@ const ISLANDS = [
     },
     restaurantes:[],
     cultura:"Tradição marítima e comunidade internacional de veleiros."
-  },
-    {
-    code:"PDL", name:"São Miguel", grupo:"Grupo Oriental", colorBg:"#1E9D5A", colorText:"#FFFFFF",
-    introducao:[
-      "São Miguel é conhecida como a **Ilha Verde**, um nome que se explica pela paisagem: pastagens intensamente verdes, florestas de criptoméria e hortênsias que cobrem as encostas vulcânicas, resultado do clima húmido e da fertilidade do solo de origem vulcânica. É a maior e mais populosa ilha do arquipélago, e também a mais visitada.",
-      "A ilha é marcada por lagoas vulcânicas, termas naturais e uma paisagem que muda a cada vale — das plantações de chá e ananás no interior às piscinas naturais na costa. **Ponta Delgada**, a capital dos Açores, é o principal ponto de partida para explorar o resto da ilha.",
-      "**Curiosidades:** a **Lagoa das Sete Cidades**, com uma margem azul e outra verde, é explicada por uma lenda local sobre uma princesa de olhos azuis e um pastor de olhos verdes que choraram ao separar-se, dando origem às duas cores das águas. Nas **Furnas**, o tradicional **Cozido das Furnas** é cozinhado debaixo da terra, aproveitando o calor natural das fumarolas vulcânicas — um método único no mundo."
-    ],
-    atracoes:[
-      {name:"Furnas", bullets:[
-        "**Poça da Dona Beija**, piscinas termais ao ar livre",
-        "**Parque Terra Nostra**, jardim histórico com piscina de água termal amarelada",
-        "Passeio pela aldeia e piquenique com **bolos lêvedos** comprados na fábrica local Rosa Quental"
-      ]},
-      {name:"Nordeste", bullets:[
-        "**Farol do Arneiro**, miradouro sobre a costa — dica, não leves o carro até lá abaixo",
-        "Vários outros miradouros ao longo da estrada regional"
-      ]},
-      {name:"Plantações Chá Gorreana", bullets:[
-        "A plantação de chá mais antiga da Europa, com visita e prova gratuitas"
-      ]},
-      {name:"Mosteiros", bullets:[
-        "Zona conhecida pelo **pôr do sol**, com vista para os ilhéus dos Mosteiros",
-        "**Praia dos Mosteiros**, ideal para o final do dia"
-      ]},
-      {name:"Lagoa das 7 Cidades", bullets:[
-        "Lagoa de duas cores, azul e verde, vista dos miradouros à volta da caldeira",
-        "Junto à lagoa ficam as **Ruínas do Monte Palace Hotel**, um antigo hotel abandonado, hoje coberto de vegetação"
-      ]},
-      {name:"Lagoa do Fogo", bullets:[
-        "**Lagoa do Fogo**, percorrer os seus miradouros para admirar a paisagem",
-        "**Caldeira Velha**, piscinas naturais de água quente junto a uma cascata"
-      ]},
-      {name:"Vila Franca do Campo", bullets:[
-        "À noite tem um ambiente simpático, com os mais velhos a conversar na rua e as crianças a brincar",
-        "O **Ilhéu de Vila Franca** merece ser descoberto de perto, mas também impressiona quando admirado junto ao mar"
-      ]},
-      {name:"Ponta Delgada", bullets:[
-        "Vale a pena visitar a cidade com calma, passeando pelo seu centro histórico, pelas **Portas da Cidade**, pela animada zona das **Portas do Mar**, pelo tradicional **Mercado da Graça** e pela marina, que convida a apreciar o ambiente marítimo de Ponta Delgada",
-        "**Jardim António Borges**, um jardim romântico do século XIX com grutas, lagos e árvores exóticas, ideal para um passeio tranquilo.",
-        "**Campo de São Francisco** e a **Igreja e Convento de Nossa Senhora da Esperança**, onde se encontra a imagem do Senhor Santo Cristo dos Milagres, a maior devoção dos Açores, celebrada anualmente no quinto domingo após a Páscoa."
-      ]},
-      {name:"Praias Recomendadas", bullets:[
-        "**Praia dos Moinhos**, boa para início de tarde",
-        "**Praia do Fogo**, na Ribeira Quente — ótima para o pôr do sol e o jantar a seguir",
-        "**Praia dos Mosteiros**, também para o pôr do sol",
-        "**Praia de Água d'Alto**, boa opção para o final da tarde"
-      ]}
-    ],
-    trilhos:[
-      {name:"Trilho da Lagoa das Sete Cidades", bullets:[
-        "Percurso circular junto à cratera das Sete Cidades, com vistas deslumbrantes sobre as lagoas Azul e Verde e alguns dos miradouros mais emblemáticos de São Miguel"
-      ]},
-      {name: "Lagoa do Canário", bullets:[
-        "Percurso que liga as duas lagoas, com vistas amplas sobre a caldeira e o interior da ilha"      
-      ]}
-    ],
-    gastronomia:[
-      {name:"Doces", bullets:[
-        "**Bolos Lêvedos**, vale a pena comprar diretamente na fábrica, nas Furnas. E sabe sempre bem no pequeno-almoço ou lanche",
-        "**Queijadas da Vila** doce tradicional de Vila Franca do Campo, produzido há séculos e um dos mais emblemáticos da ilha",
-        "**Ananás** produzido em estufa e com um sabor mais intenso do que o ananás tropical comum"
-      ]},
-      {name:"Pratos ou Bebidas", bullets:[
-        "**Cozido das Furnas** cozinhado debaixo da terra, aproveitando o calor vulcânico",
-        "**Bife à Regional** um dos pratos mais populares de São Miguel, preparado com carne açoriana e molho rico em alho e especiarias",
-        "**Chicharros Fritos** peixe típico dos Açores servido frito, geralmente acompanhado por molho vilão",
-        "**Polvo Guisado** receita tradicional açoriana, especialmente apreciada em épocas festivas",
-        "Bebidas **Melo Abreu**, cerveja Especial, Laranjada e Kima de Maracujá"
-      ]}
-    ],
-    restaurantes:[
-      {
-        regiao:"Ponta Delgada",
-        grupos:[
-          {label:"Onde comer", itens:[
-            "**Mané Cigano** — chicharros fritos com arroz de tomate e peixe frito em geral (almoço)",
-            "**O Galego** — os melhores bifes (jantar)"
-          ]}
-        ]
-      },
-      {
-        regiao:"Rabo de Peixe",
-        grupos:[
-          {label:"Onde comer", itens:[
-            "**Botequim Açoreano** — para entrada, morcela com ananás e angélica; restaurante do chef Rúben Pacheco Correia, da TVI (jantar)"
-          ]}
-        ]
-      },
-      {
-        regiao:"Ribeira Quente",
-        grupos:[
-          {label:"Onde comer", itens:[
-            "**Ponta do Garajau** — pratos de peixe, junto à Praia do Fogo (pôr do sol e jantar)"
-          ]}
-        ]
-      },
-      {
-        regiao:"Mosteiros",
-        grupos:[
-          {label:"Onde comer", itens:[
-            "**O Américo de Barbosa** — um prato de polvo e um hambúrguer de peixe em bolo lêvedo (pôr do sol e jantar)"
-          ]}
-        ]
-      }
-    ],
-    cultura:"As **Festas do Senhor Santo Cristo dos Milagres**, em Ponta Delgada, são uma das maiores romarias religiosas dos Açores, reunindo milhares de pessoas todos os anos no final de abril ou início de maio. A imagem do Senhor Santo Cristo sai em procissão pelas ruas da cidade, decoradas com tapetes de flores e panos bordados. Destacam-se as **Festas do Espírito Santo**, presentes em praticamente todas as freguesias da ilha e marcadas pelas coroações, partilha de alimentos e forte espírito de solidariedade. Durante a Quaresma, os **Romeiros de São Miguel** percorrem a ilha a pé em peregrinação, mantendo uma tradição secular única nos Açores. Outra tradição distintiva é a **produção de chá**, já que São Miguel alberga as únicas plantações de chá da Europa."
   },
   {
     code:"SMA", name:"Santa Maria", grupo:"Grupo Oriental", colorBg:"#F4C43D", colorText:"#1C2420",
@@ -838,12 +890,6 @@ function moveIndicator(btn){
   indicator.style.width = btn.offsetWidth + 'px';
 }
 requestAnimationFrame(()=> moveIndicator(reelBtn));
-if(document.fonts && document.fonts.ready){
-  document.fonts.ready.then(()=>{
-    const active = nav.querySelector('.tab-btn.active');
-    if(active) moveIndicator(active);
-  });
-}
 window.addEventListener('resize', ()=>{
   const active = nav.querySelector('.tab-btn.active');
   if(active) moveIndicator(active);
@@ -875,7 +921,7 @@ function renderParagraphs(list){
   return list.map(p=>`<p>${b(p)}</p>`).join('');
 }
 function renderAtracaoItem(item){
-  const subs = item.bullets && item.bullets.length ? `<ul>${item.bullets.map(s=>`<li><div class="li-body">${b(s)}</div></li>`).join('')}</ul>` : '';
+  const subs = item.bullets && item.bullets.length ? `<ul>${item.bullets.map(s=>`<li>${b(s)}</li>`).join('')}</ul>` : '';
   return `<li><div class="li-body"><strong>${b(item.name)}</strong>${subs}</div></li>`;
 }
 function renderAtracoes(list){
@@ -890,7 +936,7 @@ function renderAtracoes(list){
   return `<ul class="pick-list">${list.map(renderAtracaoItem).join('')}</ul>`;
 }
 function renderTrilhosList(list){
-  return list.map(t=>`<li><div class="li-body"><strong>${b(t.name)}</strong>${t.desc ? ' — ' + b(t.desc) : ''}</div></li>`).join('');
+  return list.map(t=>`<li><strong>${b(t.name)}</strong>${t.desc ? ' — ' + b(t.desc) : ''}</li>`).join('');
 }
 function renderTrilhos(trilhos){
   if(Array.isArray(trilhos)){
@@ -910,7 +956,7 @@ function temTrilhos(trilhos){
   return !!(trilhos.intro || (trilhos.percursos && trilhos.percursos.length));
 }
 function renderNameDescList(list){
-  return list.map(item=>`<li><div class="li-body"><strong>${b(item.name)}</strong>${item.desc ? ' — ' + b(item.desc) : ''}</div></li>`).join('');
+  return list.map(item=>`<li><strong>${b(item.name)}</strong>${item.desc ? ' — ' + b(item.desc) : ''}</li>`).join('');
 }
 function renderGastronomia(g){
   if(!g) return '';
@@ -928,7 +974,7 @@ function renderGastronomia(g){
 }
 function renderRestaurantes(list){
   return list.map(r=>{
-    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list">${g.itens.map(i=>`<li><div class="li-body">${b(i)}</div></li>`).join('')}</ul>`).join('');
+    const grupos = r.grupos.map(g=>`<p class="group-label">${b(g.label)}</p><ul class="pick-list">${g.itens.map(i=>`<li>${b(i)}</li>`).join('')}</ul>`).join('');
     return `<h4 class="sub-heading">${b(r.regiao)}</h4>${grupos}`;
   }).join('');
 }
@@ -993,10 +1039,10 @@ ISLANDS.forEach(isl=>{
 function showView(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(btn=>{
-    const isActive = btn.dataset.target===id;
-    btn.classList.toggle('active', isActive);
-    if(isActive){ moveIndicator(btn); btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}); }
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    const isActive = b.dataset.target===id;
+    b.classList.toggle('active', isActive);
+    if(isActive) moveIndicator(b);
   });
   window.scrollTo({top:0,behavior:'smooth'});
 }
