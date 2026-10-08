@@ -1,56 +1,146 @@
-    function showView(id) {
-      document
-        .querySelectorAll('.view')
-        .forEach(view => {
-          view.classList.remove('active');
-        });
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      const selectedView =
-        document.getElementById(id);
+  <title>Azores by an Islander</title>
 
-      if (selectedView) {
-        selectedView.classList.add('active');
-      }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-      document
-        .querySelectorAll('.tab-btn')
-        .forEach(btn => {
-          const isActive =
-            btn.dataset.target === id;
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
+    rel="stylesheet"
+  >
 
-          btn.classList.toggle(
-            'active',
-            isActive
-          );
-
-          if (isActive) {
-            moveIndicator(btn);
-          }
-        });
-
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+  <style>
+    :root {
+      --bg: #FAF3E4;
+      --card: #FFFFFF;
+      --card-2: #F3E8C9;
+      --ink: #1C2420;
+      --ink-soft: #5B6259;
+      --green: #189B57;
+      --green-deep: #0E6E3D;
+      --green-light: #E3F3E8;
+      --blue: #1C86C4;
+      --blue-deep: #0B3E5C;
+      --yellow: #F4B740;
+      --topbar: #1C86C4;
+      --topbar-2: #0B5C86;
+      --topbar-ink: #FFFFFF;
+      --shadow: 0 10px 30px rgba(11, 62, 92, 0.14);
+      --shadow-sm: 0 4px 12px rgba(11, 62, 92, 0.10);
     }
 
-    nav.addEventListener(
-      'click',
-      event => {
-        const btn =
-          event.target.closest(
-            '.tab-btn'
-          );
+    * {
+      box-sizing: border-box;
+    }
 
-        if (btn) {
-          showView(
-            btn.dataset.target
-          );
-        }
-      }
-    );
+    html {
+      scroll-behavior: smooth;
+    }
 
-  </script>
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
-</body>
-</html>
+    h1,
+    h2,
+    h3,
+    .display {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 0.02em;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    ::selection {
+      background: var(--yellow);
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    /* ==========================================
+       HEADER
+       ========================================== */
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 26px 6vw 14px;
+      background: linear-gradient(
+        120deg,
+        var(--topbar),
+        var(--topbar-2)
+      );
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      color: var(--topbar-ink);
+      font-size: clamp(24px, 3vw, 30px);
+    }
+
+    .brand b {
+      color: var(--topbar-ink);
+    }
+
+    .brand small {
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 999px;
+      color: var(--topbar-2);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* ==========================================
+       NAVIGATION
+       ========================================== */
+
+    .nav-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      padding: 12px 0;
+      background: linear-gradient(
+        120deg,
+        var(--topbar),
+        var(--topbar-2)
+      );
+      border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+    }
+
+    nav {
+      position: relative;
+      display: flex;
+      gap: 6px;
+      overflow
