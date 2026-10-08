@@ -6,30 +6,19 @@
 
   <title>Azores by an Islander</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap"
-    rel="stylesheet"
-  >
-
   <style>
     :root {
-      --bg: #FAF3E4;
-      --card: #FFFFFF;
-      --card-2: #F3E8C9;
-      --ink: #1C2420;
-      --ink-soft: #5B6259;
-      --green: #189B57;
-      --green-deep: #0E6E3D;
-      --green-light: #E3F3E8;
-      --blue: #1C86C4;
-      --blue-deep: #0B3E5C;
-      --yellow: #F4B740;
-      --topbar: #1C86C4;
-      --topbar-2: #0B5C86;
-      --topbar-ink: #FFFFFF;
+      --bg: #faf3e4;
+      --card: #ffffff;
+      --ink: #1c2420;
+      --ink-soft: #5b6259;
+      --green: #189b57;
+      --green-deep: #0e6e3d;
+      --green-light: #e3f3e8;
+      --blue: #1c86c4;
+      --blue-deep: #0b3e5c;
+      --yellow: #f4b740;
+      --pink: #d9709b;
       --shadow: 0 10px 30px rgba(11, 62, 92, 0.14);
       --shadow-sm: 0 4px 12px rgba(11, 62, 92, 0.10);
     }
@@ -46,101 +35,2049 @@
       margin: 0;
       background: var(--bg);
       color: var(--ink);
-      font-family: 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    h1,
-    h2,
-    h3,
-    .display {
-      margin: 0;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    .mono {
-      font-family: 'IBM Plex Mono', monospace;
-      letter-spacing: 0.02em;
+    button,
+    input,
+    textarea {
+      font: inherit;
     }
 
     a {
       color: inherit;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    ::selection {
-      background: var(--yellow);
-    }
-
     strong {
-      font-weight: 600;
+      font-weight: 700;
     }
-
-    /* ==========================================
-       HEADER
-       ========================================== */
 
     header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding: 26px 6vw 14px;
+      padding: 26px 6vw 16px;
       background: linear-gradient(
         120deg,
-        var(--topbar),
-        var(--topbar-2)
+        var(--blue),
+        var(--blue-deep)
       );
+      color: white;
     }
 
     .brand {
       display: flex;
-      align-items: baseline;
+      align-items: center;
       gap: 10px;
-      color: var(--topbar-ink);
-      font-size: clamp(24px, 3vw, 30px);
-    }
-
-    .brand b {
-      color: var(--topbar-ink);
+      flex-wrap: wrap;
+      font-size: 30px;
+      font-weight: 700;
     }
 
     .brand small {
-      padding: 4px 10px;
-      background: rgba(255, 255, 255, 0.85);
+      padding: 5px 10px;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 999px;
-      color: var(--topbar-2);
-      font-family: 'Inter', sans-serif;
+      color: var(--blue-deep);
       font-size: 12px;
-      font-weight: 500;
+      font-weight: 600;
     }
-
-    /* ==========================================
-       NAVIGATION
-       ========================================== */
 
     .nav-wrap {
       position: sticky;
       top: 0;
-      z-index: 20;
-      padding: 12px 0;
+      z-index: 100;
+      padding: 10px 0;
       background: linear-gradient(
         120deg,
-        var(--topbar),
-        var(--topbar-2)
+        var(--blue),
+        var(--blue-deep)
       );
-      border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
 
-    nav {
-      position: relative;
+    .nav {
       display: flex;
       gap: 6px;
-      overflow
+      overflow-x: auto;
+      padding: 4px 6vw;
+      scrollbar-width: none;
+    }
+
+    .nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      padding: 9px 16px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+      white-space: nowrap;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(
+        135deg,
+        var(--green),
+        var(--yellow)
+      );
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .tab-btn .code {
+      margin-right: 4px;
+      font-size: 10px;
+      opacity: 0.72;
+    }
+
+    main {
+      min-height: 70vh;
+      padding: 0 6vw 70px;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* HOME */
+
+    .hero {
+      padding: 44px 0 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 12px;
+      background: var(--green-deep);
+      border-radius: 999px;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      max-width: 750px;
+      margin: 14px 0 10px;
+      font-size: clamp(34px, 6vw, 60px);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .reel-strip {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 28px 4px 22px;
+    }
+
+    .reel-card {
+      position: relative;
+      flex: 0 0 185px;
+      display: flex;
+      align-items: flex-end;
+      aspect-ratio: 9 / 14;
+      overflow: hidden;
+      padding: 18px;
+      border: 0;
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      color: white;
+      cursor: pointer;
+      text-align: left;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .reel-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(11, 62, 92, 0.22);
+    }
+
+    .reel-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 35%,
+        rgba(0, 0, 0, 0.55)
+      );
+    }
+
+    .reel-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .reel-code {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+
+    .reel-name {
+      display: block;
+      font-size: 21px;
+      font-weight: 700;
+    }
+
+    .links-section {
+      margin-top: 30px;
+    }
+
+    .links-section h2 {
+      margin: 30px 0 14px;
+      font-size: 18px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(210px, 1fr)
+      );
+      gap: 12px;
+    }
+
+    .link-card {
+      display: block;
+      padding: 16px;
+      background: white;
+      border-radius: 14px;
+      box-shadow: var(--shadow-sm);
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .link-card strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .link-card small {
+      color: var(--ink-soft);
+      line-height: 1.4;
+    }
+
+    /* ISLAND */
+
+    .island-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding: 40px 0 22px;
+    }
+
+    .island-code {
+      padding: 6px 11px;
+      background: var(--blue-deep);
+      border-radius: 999px;
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .island-title {
+      margin: 0;
+      padding: 7px 16px;
+      border-radius: 12px;
+      font-size: clamp(34px, 6vw, 56px);
+      line-height: 1;
+    }
+
+    .island-group {
+      color: var(--ink-soft);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .island-body {
+      display: grid;
+      gap: 20px;
+    }
+
+    .section-block {
+      padding: 24px 26px;
+      background: white;
+      border-left: 5px solid var(--accent);
+      border-radius: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-block h2 {
+      margin: 0 0 16px;
+      font-size: 19px;
+    }
+
+    .section-block h3 {
+      margin: 24px 0 10px;
+      color: var(--blue-deep);
+      font-size: 17px;
+    }
+
+    .section-block h3:first-child {
+      margin-top: 0;
+    }
+
+    .section-block h4 {
+      margin: 17px 0 7px;
+      color: var(--green-deep);
+      font-size: 14px;
+    }
+
+    .section-block p {
+      margin: 0 0 14px;
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    .section-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .item-list > li {
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(28, 36, 32, 0.09);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .item-list > li:last-child {
+      border-bottom: 0;
+    }
+
+    .item-list > li::before {
+      content: "•";
+      margin-right: 8px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .sub-list {
+      margin: 8px 0 0 18px;
+      padding-left: 16px;
+      border-left: 2px solid #ece7d9;
+      list-style: none;
+    }
+
+    .sub-list li {
+      padding: 4px 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .sub-list li::before {
+      content: "•";
+      margin-right: 7px;
+      color: var(--yellow);
+    }
+
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit,
+        minmax(130px, 1fr)
+      );
+      gap: 10px;
+    }
+
+    .photo-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 4 / 3;
+      padding: 15px;
+      background: linear-gradient(
+        135deg,
+        var(--green-light),
+        #e4edf4
+      );
+      border-radius: 14px;
+      color: var(--ink-soft);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 28px 6vw;
+      background: var(--blue-deep);
+      color: #dcefea;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .nav {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      main {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .section-block {
+        padding: 20px;
+      }
+
+      .island-title {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="brand">
+      <span>Azores</span>
+      <small>by an Islander</small>
+    </div>
+  </header>
+
+  <div class="nav-wrap">
+    <nav class="nav" id="nav"></nav>
+  </div>
+
+  <main>
+
+    <section class="view active" id="view-home">
+
+      <div class="hero">
+        <span class="tag">
+          09 ILHAS
+        </span>
+
+        <h1>
+          Um minuto por ilha, antes de decidires.
+        </h1>
+
+        <p>
+          Vê primeiro. Descobre as nove ilhas dos Açores,
+          as suas paisagens, tradições, trilhos, gastronomia
+          e os lugares que merecem uma paragem.
+        </p>
+      </div>
+
+      <div
+        class="reel-strip"
+        id="reelStrip"
+      ></div>
+
+      <div class="links-section">
+
+        <h2>
+          Links Gerais
+        </h2>
+
+        <div class="links-grid">
+
+          <a
+            class="link-card"
+            href="https://trails.visitazores.com/pt-pt"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <strong>
+              Rede de Trilhos dos Açores
+            </strong>
+
+            <small>
+              Percursos pedestres oficiais nas várias ilhas.
+            </small>
+          </a>
+
+          https://www.visitazores.com/
+            <strong>
+              Visit Azores
+            </strong>
+
+            <small>
+              Informação turística sobre o arquipélago.
+            </small>
+          </a>
+
+        </div>
+
+        <h2>
+          Trilhos por Ilha
+        </h2>
+
+        <div
+          class="links-grid"
+          id="trailLinks"
+        ></div>
+
+      </div>
+
+    </section>
+
+    <div id="islandViews"></div>
+
+  </main>
+
+  <footer>
+    <span>
+      Feito com carinho açoriano · Graciosa, Açores
+    </span>
+
+    <span>
+      Azores by an Islander
+    </span>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const ISLANDS = [
+      {
+        code: "GRW",
+        name: "Graciosa",
+        group: "Grupo Central",
+        color: "#FFFFFF",
+        textColor: "#1C2420",
+
+        intro: [
+          `Conhecida como a **Ilha Branca**, a Graciosa distingue-se pelas suas casas caiadas, paisagens suaves e ambiente tranquilo. É uma das ilhas mais planas dos Açores e uma das mais fáceis de explorar, ideal para quem procura autenticidade, natureza e um ritmo de vida mais calmo.`,
+
+          `Ao contrário de outras ilhas açorianas, a Graciosa não possui lagoas nem grandes cursos de água. Esta escassez moldou a história da ilha e deu origem a um engenhoso património ligado ao armazenamento da água, visível em cisternas, reservatórios e estruturas tradicionais espalhadas pelo território.`,
+
+          `O centro histórico de **Santa Cruz da Graciosa** é considerado um dos mais bonitos dos Açores, com ruas tranquilas, praças elegantes e edifícios bem preservados. Em 2007, a ilha foi reconhecida pela UNESCO como **Reserva da Biosfera**, refletindo o equilíbrio entre natureza, cultura e sustentabilidade.`
+        ],
+
+        attractions: [
+          {
+            region: "Santa Cruz da Graciosa",
+            intro: "O coração da ilha merece ser explorado a pé.",
+
+            items: [
+              {
+                name: "Centro de Santa Cruz",
+                bullets: [
+                  `Passeie pelo centro histórico, pelos **Paúis** e pela Praça Fontes Pereira de Melo.`,
+                  `Visite as ruínas da antiga Igreja de São Francisco.`,
+                  `Conheça a Igreja Matriz e a Igreja do Senhor Santo Cristo.`
+                ]
+              },
+
+              {
+                name: "Farol da Ponta da Barca",
+                bullets: [
+                  `Visite o farol junto ao emblemático **Ilhéu da Baleia**.`
+                ]
+              },
+
+              {
+                name: "Barro Vermelho",
+                bullets: [
+                  `Descubra esta praia de areia avermelhada na costa norte da ilha.`
+                ]
+              },
+
+              {
+                name: "Passeios e Miradouros",
+                bullets: [
+                  `Caminhe junto ao mar entre a Rua do Mar e o Hotel Ilha Graciosa.`,
+                  `Suba ao **Monte da Ajuda** para visitar as três ermidas e desfrutar da vista sobre Santa Cruz.`
+                ]
+              },
+
+              {
+                name: "Zonas Balneares Recomendadas",
+                bullets: [
+                  `**Poça das Salemas**`,
+                  `**Calheta**`,
+                  `**Barro Vermelho**`
+                ]
+              }
+            ]
+          },
+
+          {
+            region: "São Mateus",
+            intro: `Também conhecida como **Vila da Praia**, São Mateus combina natureza, património e belas paisagens costeiras.`,
+
+            items: [
+              {
+                name: "Vila da Praia",
+                bullets: [
+                  `Passeie junto ao mar entre a lagoa e a praia.`,
+                  `Visite o Monte da Senhora da Saúde e a sua ermida.`,
+                  `Observe o **Ilhéu da Praia**, importante santuário de aves marinhas.`
+                ]
+              },
+
+              {
+                name: "Caldeira da Graciosa",
+                bullets: [
+                  `Faça uma paragem para um piquenique no parque de merendas.`,
+                  `Desça à **Furna do Enxofre**, uma impressionante cavidade vulcânica.`,
+                  `Percorra o trilho no perímetro da caldeira e pare nos miradouros.`,
+                  `Suba à **Gruta da Maria Encantada**.`
+                ]
+              },
+
+              {
+                name: "Zona Balnear Recomendada",
+                bullets: [
+                  `**Praia**`
+                ]
+              }
+            ]
+          },
+
+          {
+            region: "Luz",
+            intro: `Uma zona marcada pelo mar, pelas termas e pelas paisagens vulcânicas.`,
+
+            items: [
+              {
+                name: "Carapacho",
+                bullets: [
+                  `Relaxe nas históricas **Termas do Carapacho**.`,
+                  `Aproveite as piscinas naturais do Carapacho.`,
+                  `Visite o Farol do Carapacho.`
+                ]
+              },
+
+              {
+                name: "Folga e Baía do Filipe",
+                bullets: [
+                  `Descubra a tranquilidade da Folga.`,
+                  `Pare na Baía do Filipe e aproveite o baloiço com vista para o mar.`
+                ]
+              },
+
+              {
+                name: "Zonas Balneares Recomendadas",
+                bullets: [
+                  `**Carapacho**`,
+                  `**Folga**`
+                ]
+              }
+            ]
+          },
+
+          {
+            region: "Guadalupe",
+            intro: `Uma das melhores zonas da ilha para apreciar paisagens e miradouros.`,
+
+            items: [
+              {
+                name: "Serra Branca",
+                bullets: [
+                  `Percorra a serra e faça paragens nos seus vários miradouros.`
+                ]
+              },
+
+              {
+                name: "Caldeirinha",
+                bullets: [
+                  `Visite a Caldeirinha, junto ao parque eólico.`
+                ]
+              },
+
+              {
+                name: "Esperança Velha",
+                bullets: [
+                  `Conheça o **Burro Anão da Graciosa**.`
+                ]
+              },
+
+              {
+                name: "Porto Afonso",
+                bullets: [
+                  `Admire as formações de argila e a paisagem costeira.`
+                ]
+              },
+
+              {
+                name: "Beira-Mar da Vitória",
+                bullets: [
+                  `Um excelente local para terminar o dia e apreciar o pôr do sol.`
+                ]
+              },
+
+              {
+                name: "Zona Balnear Recomendada",
+                bullets: [
+                  `**Poceirões**`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Caldeirinha",
+            description: "Percurso curto por uma paisagem vulcânica e rural."
+          },
+
+          {
+            name: "Cumeeira da Caldeira",
+            description: "Caminhada panorâmica ao redor da caldeira."
+          },
+
+          {
+            name: "Barro Vermelho",
+            description: "Percurso que combina costa e paisagens agrícolas."
+          },
+
+          {
+            name: "Grande Rota da Graciosa",
+            description: "Uma opção para descobrir a ilha com maior profundidade."
+          },
+
+          {
+            name: "Folga - Baía do Filipe",
+            description: "Trilho costeiro com belas vistas sobre o mar."
+          }
+        ],
+
+        food: {
+          sweets: [
+            {
+              name: "Queijadas da Graciosa",
+              description: "o doce mais emblemático da ilha"
+            },
+
+            {
+              name: "Pastéis de Arroz",
+              description: "presença habitual nas pastelarias locais"
+            },
+
+            {
+              name: "Rochedos",
+              description: "doce tradicional"
+            },
+
+            {
+              name: "Guardanapos",
+              description: "doce tradicional"
+            },
+
+            {
+              name: "Massa Doce",
+              description: "pão doce tradicional"
+            }
+          ],
+
+          dishes: [
+            {
+              name: "Sopas do Espírito Santo",
+              description: "prato ligado às celebrações do Espírito Santo"
+            },
+
+            {
+              name: "Caldo de Peixe",
+              description: "receita tradicional ligada ao mar"
+            },
+
+            {
+              name: "Caldeirada de Peixe",
+              description: "prato regional de peixe"
+            }
+          ]
+        },
+
+        restaurants: [
+          {
+            region: "Cafés e Padarias",
+            items: [
+              `**Café Ilhéu**, para uma pausa no centro.`,
+              `**Padaria José João**, para pão e doces regionais.`,
+              `**Padaria Santos**, conhecida pelos croissants e guardanapos.`,
+              `**Apolo 80**, espaço descontraído para refeições.`
+            ]
+          },
+
+          {
+            region: "Restaurantes",
+            items: [
+              `**Costa do Sol**.`,
+              `**Costa do Sol By The Sea**.`,
+              `**Estrela do Mar**, com vista sobre a Folga e São Jorge.`
+            ]
+          }
+        ],
+
+        culture: `A Graciosa preserva muitas das tradições açorianas. As **touradas à corda** e as corridas de praça refletem a ligação cultural à ilha Terceira.
+
+As **Festas do Senhor Santo Cristo** são uma das principais celebrações religiosas da ilha, enquanto as festas do **Espírito Santo** continuam muito presentes através das coroações, dos bodos e da partilha comunitária.
+
+O **Carnaval Graciosense** é vivido intensamente em toda a ilha.`
+      },
+
+      {
+        code: "TER",
+        name: "Terceira",
+        group: "Grupo Central",
+        color: "#8E63C4",
+        textColor: "#FFFFFF",
+
+        intro: [
+          `A Terceira é conhecida como a **Ilha Lilás** devido à abundância de hortênsias que pintam as suas paisagens com tons de lilás.`,
+
+          `É uma ilha onde a história, a natureza vulcânica e as tradições açorianas se encontram: cidades cuidadas, campos verdes, piscinas naturais e paisagens que mudam a cada curva da estrada.`,
+
+          `**Angra do Heroísmo** é o principal centro histórico da ilha e está classificada como Património Mundial pela UNESCO.`,
+
+          `A melhor forma de a conhecer é dividir a visita entre **Praia da Vitória**, **Angra do Heroísmo** e o interior da ilha.`
+        ],
+
+        attractions: [
+          {
+            region: "Angra do Heroísmo",
+            intro: `**Angra do Heroísmo** deve ser conhecida a pé e sem pressa.`,
+
+            items: [
+              {
+                name: "Centro Histórico",
+                bullets: [
+                  `**Igreja da Misericórdia**.`,
+                  `**Sé Catedral de Angra**.`,
+                  `**Rua Direita**.`,
+                  `**Loja Basílio Simões**.`,
+                  `**Praça Velha** e **Paços do Concelho**.`,
+                  `**Jardim Duque da Terceira**.`,
+                  `**Pico da Memória**.`
+                ]
+              },
+
+              {
+                name: "Museus",
+                bullets: [
+                  `**Museu de Angra do Heroísmo**.`,
+                  `**Museu Militar dos Açores**.`,
+                  `**Palácio dos Capitães Generais**.`
+                ]
+              },
+
+              {
+                name: "Monte Brasil",
+                bullets: [
+                  `Explore de carro ou a pé.`,
+                  `Pare no **Pico das Cruzinhas**.`,
+                  `Passe pelo **Relvão**.`
+                ]
+              },
+
+              {
+                name: "Zonas Balneares Recomendadas",
+                bullets: [
+                  `**Silveira**.`,
+                  `**Zona de Banhos do Negrito**.`,
+                  `**Zona de Banhos da Serretinha**.`,
+                  `**Zona do Fanal**.`
+                ]
+              },
+
+              {
+                name: "Interior da Ilha",
+                bullets: [
+                  `**Algar do Carvão**.`,
+                  `**Furnas do Enxofre**.`,
+                  `**Lagoa das Patas**.`,
+                  `**Gruta do Natal**.`,
+                  `**Lagoa do Negro**.`,
+                  `**Serra de Santa Bárbara**.`
+                ]
+              },
+
+              {
+                name: "Ilhéus das Cabras",
+                bullets: [
+                  `Pare no **Miradouro da Cruz do Canário** para admirar os Ilhéus das Cabras.`
+                ]
+              }
+            ]
+          },
+
+          {
+            region: "Praia da Vitória",
+            intro: `A **Praia da Vitória** combina centro histórico, praia, marina, miradouros e paisagens rurais.`,
+
+            items: [
+              {
+                name: "Centro",
+                bullets: [
+                  `**Igreja Matriz da Praia da Vitória**.`,
+                  `Rua de Jesus.`,
+                  `Praça Francisco Ornelas da Câmara.`,
+                  `Marina.`,
+                  `**Miradouro do Facho**.`
+                ]
+              },
+
+              {
+                name: "Porto Martins",
+                bullets: [
+                  `**Piscinas Naturais de Porto Martins**.`
+                ]
+              },
+
+              {
+                name: "Biscoitos",
+                bullets: [
+                  `Piscinas naturais formadas em rocha vulcânica.`,
+                  `Prova de vinhos na **Adega Materramenta**.`
+                ]
+              },
+
+              {
+                name: "Serra do Cume",
+                bullets: [
+                  `Miradouro sobre a famosa paisagem em **manta de retalhos**.`
+                ]
+              },
+
+              {
+                name: "Agualva",
+                bullets: [
+                  `**Miradouro da Alagoa da Fajãzinha**.`,
+                  `**Parque das Frechas**.`,
+                  `**Matas da Agualva**.`
+                ]
+              },
+
+              {
+                name: "Quatro Ribeiras",
+                bullets: [
+                  `**Zona Balnear das Quatro Ribeiras**.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Mistérios Negros",
+            description: "Percurso pelo interior da ilha."
+          },
+
+          {
+            name: "Baías da Agualva",
+            description: "Percurso ao longo da costa norte."
+          },
+
+          {
+            name: "Rocha do Chambre",
+            description: "Percurso pelo maciço central da ilha."
+          },
+
+          {
+            name: "Matas da Agualva",
+            description: "Percurso por áreas florestais."
+          },
+
+          {
+            name: "Lagoa do Cerro",
+            description: "Percurso por pastagens de altitude."
+          },
+
+          {
+            name: "Rota da Água",
+            description: "Percurso ligado ao património da água."
+          }
+        ],
+
+        food: {
+          sweets: [
+            {
+              name: "Donas Amélias",
+              description: "doce tradicional da Terceira"
+            },
+
+            {
+              name: "Conde da Praia",
+              description: "doce tradicional"
+            }
+          ],
+
+          dishes: [
+            {
+              name: "Alcatra",
+              description: "um dos pratos mais representativos da ilha"
+            }
+          ]
+        },
+
+        restaurants: [
+          {
+            region: "Angra do Heroísmo",
+            items: [
+              `**Pastelaria O Forno**.`,
+              `**Pastelaria Aliança**.`,
+              `**Queijo Vaquinha**.`,
+              `**Quinta dos Açores**.`,
+              `**Tasca das Tias**.`,
+              `**Marina Grill**.`,
+              `**Restaurante Rocha**.`,
+              `**Beira Mar São Mateus**.`
+            ]
+          },
+
+          {
+            region: "Praia da Vitória",
+            items: [
+              `**Panificação Terceirense**.`,
+              `**Make Me Nuts**.`,
+              `**Galinha Frita da Vilanova**.`,
+              `**Tasca do Ramo Grande**.`,
+              `**O Pescador**.`,
+              `**Vista Grill & Lounge**.`
+            ]
+          }
+        ],
+
+        culture: `Os **Impérios do Espírito Santo** encontram-se espalhados pelas freguesias e são uma das imagens características da Terceira.
+
+A Terceira é conhecida pelas suas festas populares e pelas **touradas à corda**.
+
+O **Carnaval da Ilha Terceira** inclui os tradicionais Bailinhos e Danças, juntando teatro, música, canto e humor.`
+      },
+
+      {
+        code: "SJZ",
+        name: "São Jorge",
+        group: "Grupo Central",
+        color: "#8B5A2B",
+        textColor: "#FFFFFF",
+
+        intro: [
+          `São Jorge é a ilha das **Fajãs**, marcada por falésias, paisagens verdes e pequenas plataformas junto ao mar.`
+        ],
+
+        attractions: [
+          {
+            region: "Principais locais",
+            items: [
+              {
+                name: "Fajã da Caldeira de Santo Cristo",
+                bullets: [
+                  `Uma das fajãs mais conhecidas da ilha.`
+                ]
+              },
+
+              {
+                name: "Fajã dos Cubres",
+                bullets: [
+                  `Paisagem costeira e lagoa.`
+                ]
+              },
+
+              {
+                name: "Pico da Esperança",
+                bullets: [
+                  `Ponto mais elevado da ilha.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Fajã dos Cubres - Caldeira de Santo Cristo",
+            description: "Percurso entre duas das fajãs mais conhecidas."
+          }
+        ],
+
+        food: {
+          sweets: [],
+          dishes: [
+            {
+              name: "Queijo São Jorge",
+              description: "uma das especialidades mais conhecidas da ilha"
+            }
+          ]
+        },
+
+        restaurants: [],
+
+        culture: `A cultura de São Jorge está fortemente ligada às fajãs, à agricultura e à tradição queijeira.`
+      },
+
+      {
+        code: "PIX",
+        name: "Pico",
+        group: "Grupo Central",
+        color: "#6E756B",
+        textColor: "#FFFFFF",
+
+        intro: [
+          `O Pico é a ilha da **Montanha**, dominada pelo ponto mais alto de Portugal e por uma paisagem vulcânica marcada pela vinha.`
+        ],
+
+        attractions: [
+          {
+            region: "Principais locais",
+            items: [
+              {
+                name: "Montanha do Pico",
+                bullets: [
+                  `O ponto mais alto de Portugal.`
+                ]
+              },
+
+              {
+                name: "Paisagem da Cultura da Vinha",
+                bullets: [
+                  `Currais de pedra vulcânica.`
+                ]
+              },
+
+              {
+                name: "Lajes do Pico",
+                bullets: [
+                  `Ligação histórica ao mar e à observação de cetáceos.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Montanha do Pico",
+            description: "Percurso de subida à Montanha do Pico."
+          }
+        ],
+
+        food: {
+          sweets: [],
+          dishes: [
+            {
+              name: "Vinho do Pico",
+              description: "produto fortemente ligado à paisagem da vinha"
+            },
+
+            {
+              name: "Lapas",
+              description: "produto do mar presente na gastronomia açoriana"
+            }
+          ]
+        },
+
+        restaurants: [],
+
+        culture: `A identidade do Pico está ligada à montanha, à vinha e à tradição marítima.`
+      },
+
+      {
+        code: "HOR",
+        name: "Faial",
+        group: "Grupo Central",
+        color: "#1C86C4",
+        textColor: "#FFFFFF",
+
+        intro: [
+          `O Faial é conhecido como a ilha **Azul**, marcada pela Horta, pela sua marina e pela ligação histórica ao Atlântico.`
+        ],
+
+        attractions: [
+          {
+            region: "Principais locais",
+            items: [
+              {
+                name: "Caldeira do Faial",
+                bullets: [
+                  `Grande cratera vulcânica coberta de vegetação.`
+                ]
+              },
+
+              {
+                name: "Marina da Horta",
+                bullets: [
+                  `Um dos lugares mais emblemáticos da cidade.`
+                ]
+              },
+
+              {
+                name: "Vulcão dos Capelinhos",
+                bullets: [
+                  `Paisagem vulcânica na costa ocidental.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Caldeira do Faial",
+            description: "Percurso ligado à grande caldeira da ilha."
+          }
+        ],
+
+        food: {
+          sweets: [],
+          dishes: [
+            {
+              name: "Peixe fresco",
+              description: "presente na gastronomia local"
+            }
+          ]
+        },
+
+        restaurants: [],
+
+        culture: `A cultura do Faial está fortemente ligada à navegação e à cidade da Horta.`
+      },
+
+      {
+        code: "PDL",
+        name: "São Miguel",
+        group: "Grupo Oriental",
+        color: "#1E9D5A",
+        textColor: "#FFFFFF",
+
+        intro: [
+          `São Miguel é conhecida como a **Ilha Verde**, marcada pelas lagoas vulcânicas, termas naturais, pastagens e paisagens muito variadas.`,
+
+          `**Ponta Delgada** é o principal centro urbano e um bom ponto de partida para explorar a ilha.`
+        ],
+
+        attractions: [
+          {
+            region: "Principais locais",
+            items: [
+              {
+                name: "Furnas",
+                bullets: [
+                  `**Poça da Dona Beija**.`,
+                  `**Parque Terra Nostra**.`,
+                  `Prove os **bolos lêvedos**.`
+                ]
+              },
+
+              {
+                name: "Sete Cidades",
+                bullets: [
+                  `Lagoas Azul e Verde.`,
+                  `Miradouros sobre a caldeira.`
+                ]
+              },
+
+              {
+                name: "Lagoa do Fogo",
+                bullets: [
+                  `Miradouros sobre a lagoa.`,
+                  `**Caldeira Velha**.`
+                ]
+              },
+
+              {
+                name: "Nordeste",
+                bullets: [
+                  `Percorra os miradouros da costa.`
+                ]
+              },
+
+              {
+                name: "Chá Gorreana",
+                bullets: [
+                  `Visite as plantações e conheça a produção de chá.`
+                ]
+              },
+
+              {
+                name: "Mosteiros",
+                bullets: [
+                  `Praia e pôr do sol sobre os ilhéus.`
+                ]
+              },
+
+              {
+                name: "Vila Franca do Campo",
+                bullets: [
+                  `Passeie junto ao mar.`,
+                  `Admire o **Ilhéu de Vila Franca**.`
+                ]
+              },
+
+              {
+                name: "Ponta Delgada",
+                bullets: [
+                  `**Portas da Cidade**.`,
+                  `**Portas do Mar**.`,
+                  `**Mercado da Graça**.`,
+                  `**Jardim António Borges**.`,
+                  `**Campo de São Francisco**.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Sete Cidades",
+            description: "Percursos com vistas sobre a grande caldeira."
+          },
+
+          {
+            name: "Lagoa do Canário",
+            description: "Percurso pela zona das Sete Cidades."
+          }
+        ],
+
+        food: {
+          sweets: [
+            {
+              name: "Bolos Lêvedos",
+              description: "especialidade muito associada às Furnas"
+            },
+
+            {
+              name: "Queijadas da Vila",
+              description: "doce associado a Vila Franca do Campo"
+            },
+
+            {
+              name: "Ananás",
+              description: "produto muito associado à ilha"
+            }
+          ],
+
+          dishes: [
+            {
+              name: "Cozido das Furnas",
+              description: "preparado utilizando o calor geotérmico"
+            },
+
+            {
+              name: "Bife à Regional",
+              description: "prato muito popular"
+            },
+
+            {
+              name: "Chicharros",
+              description: "peixe presente na gastronomia açoriana"
+            }
+          ]
+        },
+
+        restaurants: [
+          {
+            region: "Ponta Delgada",
+            items: [
+              `**Mané Cigano**.`,
+              `**O Galego**.`
+            ]
+          }
+        ],
+
+        culture: `As festas do **Senhor Santo Cristo dos Milagres**, o **Espírito Santo** e a tradição dos Romeiros fazem parte da identidade cultural de São Miguel.`
+      },
+
+      {
+        code: "SMA",
+        name: "Santa Maria",
+        group: "Grupo Oriental",
+        color: "#F4C43D",
+        textColor: "#1C2420",
+
+        intro: [
+          `Santa Maria é conhecida como a ilha **Amarela**, destacando-se pelas praias e pelas paisagens mais secas.`
+        ],
+
+        attractions: [
+          {
+            region: "Principais locais",
+            items: [
+              {
+                name: "São Lourenço",
+                bullets: [
+                  `Baía e paisagem costeira.`
+                ]
+              },
+
+              {
+                name: "Barreiro da Faneca",
+                bullets: [
+                  `Paisagem avermelhada muito característica.`
+                ]
+              },
+
+              {
+                name: "Vila do Porto",
+                bullets: [
+                  `Centro histórico da ilha.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Barreiro da Faneca",
+            description: "Percurso na paisagem característica desta zona."
+          }
+        ],
+
+        food: {
+          sweets: [],
+          dishes: [
+            {
+              name: "Peixe fresco",
+              description: "produto ligado à gastronomia local"
+            }
+          ]
+        },
+
+        restaurants: [],
+
+        culture: `Santa Maria foi a primeira ilha dos Açores a ser povoada.`
+      },
+
+      {
+        code: "FLW",
+        name: "Flores",
+        group: "Grupo Ocidental",
+        color: "#D9709B",
+        textColor: "#FFFFFF",
+
+        intro: [
+          `Flores é uma ilha marcada pelas cascatas, lagoas, falésias e paisagens intensamente verdes.`
+        ],
+
+        attractions: [
+          {
+            region: "Principais locais",
+            items: [
+              {
+                name: "Lagoa Funda e Lagoa Rasa",
+                bullets: [
+                  `Duas das paisagens naturais mais conhecidas da ilha.`
+                ]
+              },
+
+              {
+                name: "Poço do Bacalhau",
+                bullets: [
+                  `Cascata junto à Fajã Grande.`
+                ]
+              },
+
+              {
+                name: "Rocha dos Bordões",
+                bullets: [
+                  `Formação geológica característica da ilha.`
+                ]
+              },
+
+              {
+                name: "Fajãzinha",
+                bullets: [
+                  `Paisagem rural e cascatas.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Rocha dos Bordões - Fajãzinha",
+            description: "Percurso pela paisagem ocidental da ilha."
+          }
+        ],
+
+        food: {
+          sweets: [
+            {
+              name: "Bolos de milho",
+              description: "produto tradicional"
+            }
+          ],
+
+          dishes: [
+            {
+              name: "Peixe fresco",
+              description: "produto ligado ao mar"
+            }
+          ]
+        },
+
+        restaurants: [],
+
+        culture: `A paisagem, a agricultura e a relação com o oceano marcam a identidade das Flores.`
+      },
+
+      {
+        code: "CVU",
+        name: "Corvo",
+        group: "Grupo Ocidental",
+        color: "#221E1E",
+        textColor: "#FFFFFF",
+
+        intro: [
+          `O Corvo é a ilha mais pequena dos Açores, marcada pela pequena comunidade da Vila do Corvo e pela paisagem do Caldeirão.`
+        ],
+
+        attractions: [
+          {
+            region: "Principais locais",
+            items: [
+              {
+                name: "Caldeirão",
+                bullets: [
+                  `Grande cratera vulcânica no interior da ilha.`
+                ]
+              },
+
+              {
+                name: "Vila do Corvo",
+                bullets: [
+                  `Único núcleo urbano da ilha.`
+                ]
+              }
+            ]
+          }
+        ],
+
+        trails: [
+          {
+            name: "Caldeirão",
+            description: "Percurso ligado à grande cratera da ilha."
+          }
+        ],
+
+        food: {
+          sweets: [],
+
+          dishes: [
+            {
+              name: "Peixe do dia",
+              description: "produto ligado ao mar"
+            }
+          ]
+        },
+
+        restaurants: [],
+
+        culture: `A pequena dimensão da comunidade e a localização geográfica marcam fortemente a identidade do Corvo.`
+      }
+    ];
+
+    function formatText(text) {
+      if (text === null || text === undefined) {
+        return "";
+      }
+
+      return String(text).replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+      );
+    }
+
+    function paragraphs(items) {
+      if (!Array.isArray(items)) {
+        return "";
+      }
+
+      return items
+        .map((text) => `<p>${formatText(text)}</p>`)
+        .join("");
+    }
+
+    function renderAttractions(groups) {
+      if (!Array.isArray(groups)) {
+        return "";
+      }
+
+      return groups
+        .map((group) => {
+          const items = Array.isArray(group.items)
+            ? group.items
+            : [];
+
+          const intro = group.intro
+            ? `<p>${formatText(group.intro)}</p>`
+            : "";
+
+          const itemsHtml = items
+            .map((item) => {
+              const bullets = Array.isArray(item.bullets)
+                ? item.bullets
+                : [];
+
+              const bulletHtml = bullets.length
+                ? `
+                  <ul class="sub-list">
+                    ${bullets
+                      .map(
+                        (bullet) =>
+                          `<li>${formatText(bullet)}</li>`
+                      )
+                      .join("")}
+                  </ul>
+                `
+                : "";
+
+              return `
+                <li>
+                  <strong>${formatText(item.name)}</strong>
+                  ${bulletHtml}
+                </li>
+              `;
+            })
+            .join("");
+
+          return `
+            <h3>${formatText(group.region)}</h3>
+            ${intro}
+            <ul class="item-list">
+              ${itemsHtml}
+            </ul>
+          `;
+        })
+        .join("");
+    }
+
+    function renderTrails(trails) {
+      if (!Array.isArray(trails) || trails.length === 0) {
+        return "";
+      }
+
+      return `
+        <ul class="item-list">
+          ${trails
+            .map(
+              (trail) => `
+                <li>
+                  <strong>${formatText(trail.name)}</strong>
+                  ${
+                    trail.description
+                      ? ` — ${formatText(trail.description)}`
+                      : ""
+                  }
+                </li>
+              `
+            )
+            .join("")}
+        </ul>
+      `;
+    }
+
+    function renderFood(food) {
+      if (!food) {
+        return "";
+      }
+
+      const sweets = Array.isArray(food.sweets)
+        ? food.sweets
+        : [];
+
+      const dishes = Array.isArray(food.dishes)
+        ? food.dishes
+        : [];
+
+      let output = "";
+
+      if (sweets.length) {
+        output += `
+          <h3>Doces Típicos</h3>
+
+          <ul class="item-list">
+            ${sweets
+              .map(
+                (item) => `
+                  <li>
+                    <strong>${formatText(item.name)}</strong>
+                    ${
+                      item.description
+                        ? ` — ${formatText(item.description)}`
+                        : ""
+                    }
+                  </li>
+                `
+              )
+              .join("")}
+          </ul>
+        `;
+      }
+
+      if (dishes.length) {
+        output += `
+          <h3>Pratos e Produtos Regionais</h3>
+
+          <ul class="item-list">
+            ${dishes
+              .map(
+                (item) => `
+                  <li>
+                    <strong>${formatText(item.name)}</strong>
+                    ${
+                      item.description
+                        ? ` — ${formatText(item.description)}`
+                        : ""
+                    }
+                  </li>
+                `
+              )
+              .join("")}
+          </ul>
+        `;
+      }
+
+      return output;
+    }
+
+    function renderRestaurants(groups) {
+      if (!Array.isArray(groups) || groups.length === 0) {
+        return "";
+      }
+
+      return groups
+        .map(
+          (group) => `
+            <h3>${formatText(group.region)}</h3>
+
+            <ul class="item-list">
+              ${(Array.isArray(group.items) ? group.items : [])
+                .map(
+                  (item) =>
+                    `<li>${formatText(item)}</li>`
+                )
+                .join("")}
+            </ul>
+          `
+        )
+        .join("");
+    }
+
+    function renderCulture(text) {
+      if (!text) {
+        return "";
+      }
+
+      return String(text)
+        .split(/\n\s*\n/)
+        .map(
+          (paragraph) =>
+            `<p>${formatText(paragraph.trim())}</p>`
+        )
+        .join("");
+    }
+
+    function block(title, content, color) {
+      if (!content || !content.trim()) {
+        return "";
+      }
+
+      return `
+        <section
+          class="section-block"
+          style="--accent: ${color}"
+        >
+          <h2>${title}</h2>
+          ${content}
+        </section>
+      `;
+    }
+
+    function createNavigation() {
+      const nav = document.getElementById("nav");
+
+      const homeButton = document.createElement("button");
+
+      homeButton.type = "button";
+      homeButton.className = "tab-btn active";
+      homeButton.dataset.target = "view-home";
+      homeButton.textContent = "Início";
+
+      nav.appendChild(homeButton);
+
+      ISLANDS.forEach((island) => {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "tab-btn";
+        button.dataset.target = `view-${island.code}`;
+
+        button.innerHTML = `
+          <span class="code">${island.code}</span>
+          ${island.name}
+        `;
+
+        nav.appendChild(button);
+      });
+    }
+
+    function createHomeCards() {
+      const reelStrip = document.getElementById("reelStrip");
+
+      ISLANDS.forEach((island) => {
+        const button = document.createElement("button");
+
+        button.type = "button";
+        button.className = "reel-card";
+        button.dataset.target = `view-${island.code}`;
+        button.style.background = island.color;
+        button.style.color = island.textColor;
+
+        button.innerHTML = `
+          <span class="reel-content">
+            <span class="reel-code">${island.code}</span>
+            <span class="reel-name">${island.name}</span>
+          </span>
+        `;
+
+        reelStrip.appendChild(button);
+      });
+    }
+
+    function createTrailLinks() {
+      const container = document.getElementById("trailLinks");
+
+      ISLANDS.forEach((island) => {
+        const link = document.createElement("a");
+
+        link.className = "link-card";
+        link.href = "https://trails.visitazores.com/pt-pt";
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+
+        link.innerHTML = `
+          <strong>${island.name}</strong>
+          <small>
+            Trilhos · ${island.group}
+          </small>
+        `;
+
+        container.appendChild(link);
+      });
+    }
+
+    function createIslandPages() {
+      const container = document.getElementById("islandViews");
+
+      ISLANDS.forEach((island) => {
+        const view = document.createElement("section");
+
+        view.className = "view";
+        view.id = `view-${island.code}`;
+
+        const introduction = paragraphs(island.intro);
+        const attractions = renderAttractions(island.attractions);
+        const trails = renderTrails(island.trails);
+        const food = renderFood(island.food);
+        const restaurants = renderRestaurants(island.restaurants);
+        const culture = renderCulture(island.culture);
+
+        view.innerHTML = `
+          <div class="island-head">
+
+            <span class="island-code">
+              ${island.code}
+            </span>
+
+            <h1
+              class="island-title"
+              style="
+                background: ${island.color};
+                color: ${island.textColor};
+              "
+            >
+              ${island.name}
+            </h1>
+
+            <span class="island-group">
+              ${island.group}
+            </span>
+
+          </div>
+
+          <div class="island-body">
+
+            ${block(
+              "Introdução",
+              introduction,
+              "var(--blue)"
+            )}
+
+            ${block(
+              "Principais Atrações",
+              attractions,
+              "var(--green)"
+            )}
+
+            ${block(
+              "Trilhos",
+              trails,
+              "var(--green-deep)"
+            )}
+
+            ${block(
+              "Gastronomia",
+              food,
+              "var(--yellow)"
+            )}
+
+            ${block(
+              "Restaurantes e Cafés",
+              restaurants,
+              "var(--blue-deep)"
+            )}
+
+            ${block(
+              "Cultura e Tradições",
+              culture,
+              "var(--pink)"
+            )}
+
+            ${block(
+              "Fotografias",
+              `
+                <div class="photo-gallery">
+                  <div class="photo-placeholder">
+                    Foto 01
+                  </div>
+
+                  <div class="photo-placeholder">
+                    Foto 02
+                  </div>
+
+                  <div class="photo-placeholder">
+                    Foto 03
+                  </div>
+
+                  <div class="photo-placeholder">
+                    Foto 04
+                  </div>
+                </div>
+              `,
+              island.color
+            )}
+
+          </div>
+        `;
+
+        container.appendChild(view);
+      });
+    }
+
+    function showView(targetId) {
+      document
+        .querySelectorAll(".view")
+        .forEach((view) => {
+          view.classList.remove("active");
+        });
+
+      const target = document.getElementById(targetId);
+
+      if (target) {
+        target.classList.add("active");
+      }
+
+      document
+        .querySelectorAll(".tab-btn")
+        .forEach((button) => {
+          button.classList.toggle(
+            "active",
+            button.dataset.target === targetId
+          );
+        });
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function configureNavigation() {
+      document.addEventListener("click", (event) => {
+        const targetElement = event.target.closest(
+          "[data-target]"
+        );
+
+        if (!targetElement) {
+          return;
+        }
+
+        const targetId = targetElement.dataset.target;
+
+        if (targetId) {
+          showView(targetId);
+        }
+      });
+    }
+
+    function initialiseSite() {
+      createNavigation();
+      createHomeCards();
+      createTrailLinks();
+      createIslandPages();
+      configureNavigation();
+    }
+
+    initialiseSite();
+  </script>
+
+</body>
+</html>
